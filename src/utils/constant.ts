@@ -1,0 +1,1 @@
+export const PRESALE_NFT_COLLECTION_NAME = "CrazyPirate";
