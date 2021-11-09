@@ -17,7 +17,6 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
   }
 
   const scrollTo = (ref: any) => {
-    console.log(ref);
     window.scroll(
       {
         top: ref.current.offsetTop,
