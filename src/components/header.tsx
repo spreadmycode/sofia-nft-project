@@ -14,10 +14,10 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
   }
 
   const handleConnectWallet = () => {
-    if (width <= 1280) handleClickMenu();
   }
 
   const scrollTo = (ref: any) => {
+    console.log(ref);
     window.scroll(
       {
         top: ref.current.offsetTop,
@@ -27,10 +27,10 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
     if (width <= 1280) handleClickMenu();
   }
 
-  return <div className="theme-header theme-bg-color px-5 md:px-10 w-full">
-    <div className="w-full flex flex-row justify-center items-center space-x-8">
-      <div>
-        <Link href="/"><img src={'/images/logo.png'} width={width > 768 ? 100 : 60} className="cursor-pointer" /></Link>
+  return <div className="theme-header theme-bg-color md:px-10 w-full">
+    <div className="w-full flex flex-row justify-center items-center md:space-x-8">
+      <div className="pl-3 md:pl-0">
+        <Link href="/"><img src={'/images/logo.png'} width={(width > 768) ? '100px' : '70px'} className="cursor-pointer" /></Link>
       </div>
       {width > 1280 ?
         <>
@@ -60,21 +60,25 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
               MARKETPLACE
             </button>
           </div>
-          <button className="button-connect">
+          <button className="button-connect" onClick={handleConnectWallet}>
             CONNECT WALLET
           </button>
         </>
         :
         <>
-          <div className="flex-grow h-1"></div>
-          <button className="inline-flex justify-center items-center" onClick={handleClickMenu} >
+          <div className="flex-grow flex justify-center items-center">
+            <button className="button-connect" onClick={handleConnectWallet}>
+              CONNECT WALLET
+            </button>
+          </div>
+          <button className="inline-flex justify-center items-center pr-3" onClick={handleClickMenu} >
             <img src={'/images/icon_menu.png'} width="35" />
           </button>
         </>
       }
     </div>
     {isMenuShowed &&
-      <div className="flex flex-col space-y-2 w-full p-5">
+      <div className="flex flex-col space-y-2 w-full theme-bg-color p-2">
         <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(whyusRef)} >
           WHY US
         </button>
@@ -99,11 +103,6 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
         <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(launchpadRef)} >
           MARKETPLACE
         </button>
-        <div className="w-full flex justify-center items-center pt-10">
-          <button className="button-connect" onClick={handleConnectWallet}>
-            CONNECT WALLET
-          </button>
-        </div>
       </div>
     }
   </div>;

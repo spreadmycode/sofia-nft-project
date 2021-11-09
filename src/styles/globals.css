@@ -9,38 +9,9 @@
 html,
 body,
 #__next {
-  background-color: white;
+  background-color: #030111;
   height: 100%;
   width : 100%;
-}
-
-#icon-eye {
-  width   : 250px;
-  margin  : auto;
-  padding : 20px;
-  overflow: auto;
-  color   : white;
-}
-
-.loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 60px;
-  height: 60px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 /****************************** Font ****************************/
@@ -86,16 +57,26 @@ body,
   left: 0;
   top: 0;
   width: 100%;
+  height: 100px;
   z-index: 3;
 }
 
+@media(max-width: 768px) {
+  .theme-header {
+    height: 70px;
+  }
+}
+
 section {
+  position: relative;
   padding-top: 100px;
+  width: 100%;
 }
 
 @media(max-width: 768px) {
   section {
-    padding-top: 60px;
+    padding-top: 70px;
+    width: 100%;
   }
 }
 
@@ -111,24 +92,34 @@ section {
   height: 50px;
 }
 
+@media(max-width: 768px) {
+  .button-connect {
+    font-size: 14px;
+    height: 35px;
+  }
+}
+
 .button-connect:hover {
   background-color: #fdd535;
 }
 
 .header-menu-item {
-  border-bottom: solid 1px #191269;
+  border-bottom: solid 1px #444444;
   padding: 5px;
 }
 
 .z-order-background {
+  position: relative;
   z-index: 0;
 }
 
 .z-order-content {
+  position: relative;
   z-index: 1;
 }
 
 .z-order-top {
+  position: relative;
   z-index: 2;
 }
 
@@ -137,6 +128,28 @@ section {
 }
 
 /************************* Section *****************************/
+
+.gradient-block-right {
+  position: absolute;
+  top: 0;
+  right: -20%;
+  height: 100%;
+  width: 30%;
+  border-radius: 49%;
+  background: radial-gradient(closest-side at 51% 42%, #412d72, #030111 85%);
+  z-index: 0;
+}
+
+.gradient-block-left {
+  position: absolute;
+  top: 0;
+  left: -20%;
+  height: 100%;
+  width: 30%;
+  border-radius: 49%;
+  background: radial-gradient(closest-side at 51% 42%, #412d72, #030111 85%);
+  z-index: 0;
+}
 
 .background-overview-section {
   background: linear-gradient(to bottom, transparent, #030111), url('../../public/images/background.png') no-repeat;
@@ -164,10 +177,6 @@ section {
     font-size: 18px;
     line-height: 22px;
   }
-}
-
-.background-section {
-  background-color: #030111;
 }
 
 .presale-title {
@@ -210,13 +219,31 @@ section {
   justify-content: center;
   position: absolute;
   left: 3%;
-  bottom: 3%;
+  bottom: 5%;
   width: 100%;
   text-align: center;
+  height: 20%;
 }
 
 .panel-mint-button-ref {
-  width: 20%;
+  width: 15%;
+  height: 100%;
+}
+
+.panel-mint-button-ref div {
+  background: url('../../public/images/button_mint_normal.png') no-repeat bottom;
+  background-size: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.panel-mint-button-ref:active div {
+  background: url('../../public/images/button_mint_clicked.png') no-repeat bottom;
+  background-size: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .panel-mint-timer {

@@ -33,6 +33,7 @@ const Home = () => {
 
   const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
   const [isLoading, isPossibleMint] = usePresale();
+  const [mintClicked, setMintClicked] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
@@ -56,7 +57,7 @@ const Home = () => {
   }
 
   return (
-    <main className="background-section">
+    <main>
       <Toaster />
 
       <Head>
@@ -80,7 +81,7 @@ const Home = () => {
       </section>
       :
       <section>
-        <div className="w-full flex justify-cente">
+        <div className="w-full flex justify-center items-center">
           <img src={'/images/background.png'} width="100%" />
         </div>
         <div className="">
@@ -94,7 +95,7 @@ const Home = () => {
       
       <section>
         <div className="w-full md:h-screen flex justify-center items-end relative px-5 md:px-10">
-          <div className="h-4/5">
+          <div className="h-4/5 z-order-content">
             <div className="flex flex-col md:flex-row h-5/6">
               <div className="flex justify-center items-end">
                 <img src={'/images/art1.png'} />
@@ -110,24 +111,25 @@ const Home = () => {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 mt-16">
-              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold m-2 rounded inline-flex items-center justify-center py-2 space-x-2 col-span-1 md:col-start-2">
+              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold m-2 rounded inline-flex items-center justify-center py-2 space-x-2 col-span-1 md:col-start-2 z-order-top">
                 <img src={'/images/icon_button_discord.png'} width={20} height={20} />
                 <span>Join Discord</span>
               </button>
-              <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3">
+              <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3 z-order-top">
                 Mint Here Soon
               </button>
             </div>
-          </div>
+          </div>          
         </div>
+        
       </section>
 
       <section ref={launchpadRef}>
         <div className="w-full md:h-screen flex flex-col md:flex-row justify-center items-center p-10 space-x-5">
-          <div>
+          <div className="z-order-content">
             <h5 className="text-white presale-title drop-shadow-lg">PANDA WARRIORS PRE-SALE</h5>
             <p className="text-white presale-desc">
-              Be first to get your hands on the Panda Warriors NFT. Limited 1500 registration passes with max 2 NFT per wallet.
+              Be first to get your hands on the Panda Warriors NFT. Limited 1500 registration passes with max 3 NFT per wallet.
               <br />
               <br />
               Special early adopters price 1 SOL.
@@ -149,7 +151,7 @@ const Home = () => {
             <div className="panel-mint-background">
               <img src={'/images/panel_mint.png'} />
               <div className="panel-mint-button">
-                <button className="panel-mint-button-ref"><img src={'/images/button_mint_normal.png'} /></button>
+                <button className="panel-mint-button-ref" onClick={handleMintAction}><div></div></button>
               </div>
             </div>
           </div>
@@ -166,7 +168,7 @@ const Home = () => {
       <section ref={whyusRef}>
         <div className="w-full px-10">
           <h3 className="text-section-title pb-10">WHY PANDA WARRIORS</h3>
-          <div className="w-full flex md:justify-start items-center mb-10">
+          <div className="w-full flex md:justify-start items-center mb-10 z-order-content">
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">OUR MISSION</h5>
@@ -177,7 +179,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex md:justify-end items-center mb-10">
+          <div className="w-full flex md:justify-end items-center mb-10 z-order-content">
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">UTILITY</h5>
@@ -188,7 +190,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex md:justify-start items-center mb-10">
+          <div className="w-full flex md:justify-start items-center mb-10 z-order-content">
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">EXPERIENCE</h5>
@@ -199,7 +201,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex md:justify-end items-center mb-10">
+          <div className="w-full flex md:justify-end items-center mb-10 z-order-content">
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">LONGEVITY</h5>
@@ -210,7 +212,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex md:justify-start items-center">
+          <div className="w-full flex md:justify-start items-center z-order-content">
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">Our MOTO</h5>
@@ -357,7 +359,7 @@ const Home = () => {
       </section>
 
       <section ref={faqRef}>
-        <div className="w-full px-5 md:px-16 relative">
+        <div className="w-full px-5 md:px-16 pb-10 relative">
           <h3 className="text-section-title pb-10">FAQ'S</h3>
 
           <div className="panel-faq">
