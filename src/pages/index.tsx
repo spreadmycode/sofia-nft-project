@@ -316,7 +316,7 @@ const Home = () => {
                 <img src={'/images/team1.png'} />
               </div>
               <p className="text-team-name">Artists Team</p>
-              <div className="w-full flex justify-center items-center">
+              <div className="w-full flex justify-center items-center invisible">
                 <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
               </div>
             </div>
@@ -326,7 +326,7 @@ const Home = () => {
                 <img src={'/images/team2.png'} />
               </div>
               <p className="text-team-name">Project Management Team</p>
-              <div className="w-full flex justify-center items-center">
+              <div className="w-full flex justify-center items-center invisible">
                 <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
               </div>
             </div>
@@ -336,7 +336,7 @@ const Home = () => {
                 <img src={'/images/team3.png'} />
               </div>
               <p className="text-team-name">Blockchain Devs Team</p>
-              <div className="w-full flex justify-center items-center">
+              <div className="w-full flex justify-center items-center invisible">
                 <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
               </div>
             </div>
@@ -346,7 +346,7 @@ const Home = () => {
                 <img src={'/images/team4.png'} />
               </div>
               <p className="text-team-name">Marketing Team</p>
-              <div className="w-full flex justify-center items-center">
+              <div className="w-full flex justify-center items-center invisible">
                 <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
               </div>
             </div>
