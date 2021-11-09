@@ -9,13 +9,13 @@ const Footer: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-4 gap-6 px-10">
-        <a href="https://twitter.com" target="_blank" className="inline-flex text-center justify-center items-center">
+        <a href="https://mobile.twitter.com/PandaWarriorNFT" target="_blank" className="inline-flex text-center justify-center items-center">
           <img src={'/images/icon_twitter.png'} />
         </a>
-        <a href="https://discord.com" target="_blank" className="inline-flex text-center justify-center items-center">
+        <a href="https://discord.com/invite/EaefjHZJKH" target="_blank" className="inline-flex text-center justify-center items-center">
           <img src={'/images/icon_discord.png'} />
         </a>
-        <a href="https://instagram.com" target="_blank" className="inline-flex text-center justify-center items-center">
+        <a href="https://www.instagram.com/pandawarriors_nft/" target="_blank" className="inline-flex text-center justify-center items-center">
           <img src={'/images/icon_instagram.png'} />
         </a>
         <a href="https://tiktok.com" target="_blank" className="inline-flex text-center justify-center items-center">

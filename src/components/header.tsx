@@ -1,67 +1,111 @@
 import { WalletDisconnectButton, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link'
 import { useWindowSize } from '../hooks/use-window-size';
 
-const Header: React.FC = () => {
+const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqRef, launchpadRef}: any) => {
 
   const {width, height} = useWindowSize();
 
-  return <div className="flex flex-row justify-between items-center px-10 theme-bg-color">
-    <div>
-      <img src={'/images/logo.png'} width={113} height={113} />
+  const [isMenuShowed, setIsMenuShowed] = useState(false);
+
+  const handleClickMenu = () => {
+    setIsMenuShowed(!isMenuShowed);
+  }
+
+  const handleConnectWallet = () => {
+    if (width <= 1280) handleClickMenu();
+  }
+
+  const scrollTo = (ref: any) => {
+    window.scroll(
+      {
+        top: ref.current.offsetTop,
+        behavior: "smooth",
+      }
+    );
+    if (width <= 1280) handleClickMenu();
+  }
+
+  return <div className="theme-header theme-bg-color px-5 md:px-10 w-full">
+    <div className="w-full flex flex-row justify-center items-center space-x-8">
+      <div>
+        <Link href="/"><img src={'/images/logo.png'} width={width > 768 ? 100 : 60} className="cursor-pointer" /></Link>
+      </div>
+      {width > 1280 ?
+        <>
+          <div className="flex flex-row justify-between space-x-8 items-center">
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(whyusRef)} >
+              WHY US
+            </button>
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(roadmapRef)} >
+              ROADMAP
+            </button>
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(benefitsRef)} >
+              BENEFITS
+            </button>
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(attributesRef)} >
+              ATTRIBUTES
+            </button>
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(teamRef)} >
+              TEAM
+            </button>
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(faqRef)} >
+              FAQ
+            </button>
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(launchpadRef)} >
+              LAUNCHPAD
+            </button>
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(launchpadRef)} >
+              MARKETPLACE
+            </button>
+          </div>
+          <button className="button-connect">
+            CONNECT WALLET
+          </button>
+        </>
+        :
+        <>
+          <div className="flex-grow h-1"></div>
+          <button className="inline-flex justify-center items-center" onClick={handleClickMenu} >
+            <img src={'/images/icon_menu.png'} width="35" />
+          </button>
+        </>
+      }
     </div>
-    {width > 1280 ?
-      <div className="flex flex-row justify-between space-x-8 items-center">
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+    {isMenuShowed &&
+      <div className="flex flex-col space-y-2 w-full p-5">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(whyusRef)} >
           WHY US
         </button>
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(roadmapRef)} >
           ROADMAP
         </button>
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(benefitsRef)} >
           BENEFITS
         </button>
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(attributesRef)} >
           ATTRIBUTES
         </button>
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(teamRef)} >
           TEAM
         </button>
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(faqRef)} >
           FAQ
         </button>
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(launchpadRef)} >
           LAUNCHPAD
         </button>
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none">
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(launchpadRef)} >
           MARKETPLACE
         </button>
+        <div className="w-full flex justify-center items-center pt-10">
+          <button className="button-connect" onClick={handleConnectWallet}>
+            CONNECT WALLET
+          </button>
+        </div>
       </div>
-      :
-      <>
-      <div className="flex-grow h-1"></div>
-      <div className="dropdown inline-block relative mx-2">
-        <button className="button-menu inline-flex items-center">
-          <span className="mr-1">Menu</span>
-          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
-        </button>
-        <ul className="dropdown-menu absolute hidden text-white pt-1">
-          <li className=""><a className="rounded-t theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">WHY US</a></li>
-          <li className=""><a className="theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">ROADMAP</a></li>
-          <li className=""><a className="theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">BENEFITS</a></li>
-          <li className=""><a className="theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">ATTRIBUTES</a></li>
-          <li className=""><a className="theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">TEAM</a></li>
-          <li className=""><a className="theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">FAQ</a></li>
-          <li className=""><a className="theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">LANUCHPAD</a></li>
-          <li className=""><a className="rounded-b theme-bg-color hover:theme-bg-active-color py-2 px-4 block whitespace-no-wrap text-white" href="#">MARKETPLACE</a></li>
-        </ul>
-      </div>
-      </>
     }
-    <button className="button-connect">
-      CONNECT WALLET
-    </button>
   </div>;
 }
 

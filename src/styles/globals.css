@@ -81,6 +81,24 @@ body,
   background-color: #030111;
 }
 
+.theme-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+section {
+  padding-top: 100px;
+}
+
+@media(max-width: 768px) {
+  section {
+    padding-top: 60px;
+  }
+}
+
 /************************************** Header **************************/
 
 .button-connect {
@@ -97,28 +115,32 @@ body,
   background-color: #fdd535;
 }
 
-.button-menu {
-  background-color: #F1C40F;
-  color: black;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 50px;
+.header-menu-item {
+  border-bottom: solid 1px #191269;
+  padding: 5px;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
+.z-order-background {
+  z-index: 0;
 }
 
+.z-order-content {
+  z-index: 1;
+}
+
+.z-order-top {
+  z-index: 2;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
 
 /************************* Section *****************************/
 
-
 .background-overview-section {
-  background: linear-gradient(to bottom, transparent, #030111), url('../../public/images/background.png') no-repeat center;
-  background-size: cover;
+  background: linear-gradient(to bottom, transparent, #030111), url('../../public/images/background.png') no-repeat;
+  background-size: 100vw auto;
 }
 
 .overview-title {
@@ -135,7 +157,7 @@ body,
 
 @media(max-width: 1280px) {
   .overview-title {
-    font-size: 60px;
+    font-size: 40px;
   }
 
   .overview-desc {
@@ -303,15 +325,27 @@ body,
 }
 
 .background-traits-section {
-  background: linear-gradient(to bottom, transparent, #030111), url('../../public/images/background_trait.png') no-repeat center;
-  background-size: cover;
+  background: linear-gradient(to bottom, transparent, #030111), url('../../public/images/background_trait.png') no-repeat;
+  background-size: 100vw auto;
   background-color: #030111;
   margin-bottom: 15%;
+  padding-top: 12.1%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pandagif-block {
+  position: relative;
+  width: 33.3%;
+  margin-left: 1.25%;
 }
 
 .panel-trait {
-  position: absolute;
-  bottom: -5%;
+  position: relative;
+  margin-top: 2%;
 }
 
 .text-team-name {

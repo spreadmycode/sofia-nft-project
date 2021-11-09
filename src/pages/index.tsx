@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useRef } from "react";
 import { Toaster } from 'react-hot-toast';
 import { useWallet } from "@solana/wallet-adapter-react";
 import useCandyMachine from '../hooks/use-candy-machine';
@@ -21,6 +21,15 @@ const Home = () => {
   const [quantity, setQuantity] = useState(1);
 
   const wallet = useWallet();
+
+  const whyusRef = useRef(null);
+  const roadmapRef = useRef(null);
+  const benefitsRef = useRef(null);
+  const attributesRef = useRef(null);
+  const teamRef = useRef(null);
+  const faqRef = useRef(null);
+  const launchpadRef = useRef(null);
+  const marketplaceRef = useRef(null);
 
   const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
   const [isLoading, isPossibleMint] = usePresale();
@@ -56,11 +65,12 @@ const Home = () => {
         <link rel="icon" href="/icon.png" />
       </Head>
 
-      <Header />
+      <Header whyusRef={whyusRef} roadmapRef={roadmapRef} benefitsRef={benefitsRef} attributesRef={attributesRef} teamRef={teamRef} faqRef={faqRef} launchpadRef={launchpadRef}  />
 
-      <section className="w-full md:h-screen background-overview-section">
-        <div className="w-full h-full flex justify-center items-end pb-10">
-          <div className="">
+      {(width > 768) ?
+      <section>
+        <div className="w-full md:h-screen flex justify-center items-end background-overview-section">
+          <div>
             <h3 className="text-white text-center overview-title drop-shadow-lg">PANDA WARRIORS</h3>
             <p className="text-white text-center overview-desc px-5 md:px-24">
               Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicklet, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
@@ -68,11 +78,24 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <section className="w-full md:h-screen background-section">
-        <div className="w-full h-full flex justify-center items-end relative px-10">
+      :
+      <section>
+        <div className="w-full flex justify-cente">
+          <img src={'/images/background.png'} width="100%" />
+        </div>
+        <div className="">
+          <h3 className="text-white text-center overview-title drop-shadow-lg">PANDA WARRIORS</h3>
+          <p className="text-white text-center overview-desc px-5 md:px-24">
+            Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicklet, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
+          </p>
+        </div>
+      </section>
+      }
+      
+      <section>
+        <div className="w-full md:h-screen flex justify-center items-end relative px-5 md:px-10">
           <div className="h-4/5">
-            <div className="flex flex-col md:flex-row h-5/6 pb-12">
+            <div className="flex flex-col md:flex-row h-5/6">
               <div className="flex justify-center items-end">
                 <img src={'/images/art1.png'} />
               </div>
@@ -86,23 +109,21 @@ const Home = () => {
                 <img src={'/images/art4.png'} />
               </div>
             </div>
-            <div className="flex flex-row justify-center items-center">
-              <div className="flex flex-col md:flex-row">
-                <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold m-2 rounded inline-flex items-center justify-center w-52 py-2 space-x-2">
-                  <img src={'/images/icon_button_discord.png'} width={20} height={20} />
-                  <span>Join Discord</span>
-                </button>
-                <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded w-52 py-2">
-                  Mint Here Soon
-                </button>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 mt-16">
+              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold m-2 rounded inline-flex items-center justify-center py-2 space-x-2 col-span-1 md:col-start-2">
+                <img src={'/images/icon_button_discord.png'} width={20} height={20} />
+                <span>Join Discord</span>
+              </button>
+              <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3">
+                Mint Here Soon
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="w-full md:h-screen background-section">
-        <div className="w-full h-full flex flex-col md:flex-row justify-center items-center p-10 space-x-5">
+      <section ref={launchpadRef}>
+        <div className="w-full md:h-screen flex flex-col md:flex-row justify-center items-center p-10 space-x-5">
           <div>
             <h5 className="text-white presale-title drop-shadow-lg">PANDA WARRIORS PRE-SALE</h5>
             <p className="text-white presale-desc">
@@ -116,14 +137,14 @@ const Home = () => {
               <img src={'/images/icon_missile.png'} width={20} height={20} />
             </button>
           </div>
-          <div className="flex justify-center items-center w-2/5 mt-5">
+          <div className="flex justify-center items-center w-full md:w-2/5 mt-5">
             <img src={'/images/panda.png'} />
           </div>
         </div>
       </section>
 
-      <section className="w-full background-section">
-        <div className="w-full py-16">
+      <section>
+        <div className="w-full">
           <div className="panel-mint">
             <div className="panel-mint-background">
               <img src={'/images/panel_mint.png'} />
@@ -132,7 +153,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="panel-mint-timer background-section">
+          <div className="panel-mint-timer invisible">
             <span>
               <span className="text-timer-big">33</span> <span className="text-timer-small">Days</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
               <span className="text-timer-big">2</span> <span className="text-timer-small">Hrs</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -142,8 +163,8 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="w-full background-section">
-        <div className="w-full px-10 py-16">
+      <section ref={whyusRef}>
+        <div className="w-full px-10">
           <h3 className="text-section-title pb-10">WHY PANDA WARRIORS</h3>
           <div className="w-full flex md:justify-start items-center mb-10">
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
@@ -203,8 +224,11 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="w-full background-section">
-        <div className="w-full px-10 py-16">
+      <section ref={roadmapRef}>
+      </section>
+
+      <section ref={benefitsRef}>
+        <div className="w-full px-10 py-10">
           <h3 className="text-section-title pb-5">BENEFITS</h3>
           <p className="text-section-desc pb-16">WHY HOLDING PANDA WARRIORS?</p>
 
@@ -264,8 +288,11 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="w-full h-screen background-traits-section">
-        <div className="w-full h-full relative">
+      <section ref={attributesRef}>
+        <div className="w-full relative background-traits-section">
+          <div className="pandagif-block">
+            <img src={'/images/pwSlideshow.gif'} />
+          </div>
           <div className="panel-trait flex justify-center">
             <div className="flex flex-col space-y-2">
               <h3 className="text-white text-center text-section-title drop-shadow-lg">TRAITS</h3>
@@ -277,8 +304,8 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="w-full background-section">
-        <div className="w-full px-10 py-16">
+      <section ref={teamRef}>
+        <div className="w-full px-10">
           <h3 className="text-section-title pb-10">TEAM</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -329,8 +356,8 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="w-full background-section">
-        <div className="w-full px-5 md:px-16 py-16 relative">
+      <section ref={faqRef}>
+        <div className="w-full px-5 md:px-16 relative">
           <h3 className="text-section-title pb-10">FAQ'S</h3>
 
           <div className="panel-faq">
