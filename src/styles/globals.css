@@ -15,6 +15,7 @@ body,
 }
 
 /****************************** Font ****************************/
+
 @font-face {
   font-family: 'FuturaMdBt';
   font-style: normal;
@@ -466,4 +467,36 @@ section {
 .faq-list {
   list-style-type: circle;
   margin-left: 25px
+}
+
+.panel-roadmap {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.panel-roadmap-image {
+  width: 100vw;
+}
+
+@media(max-width: 768px) {
+  .panel-roadmap-image {
+    width: 768px;
+  }
+}
+
+.section-roadmap {
+  overflow-x: scroll;
+}
+
+.section-roadmap::-webkit-scrollbar {
+  width: 10px;
+}
+
+.section-roadmap::-webkit-scrollbar-track {
+  background-color: #030111;
+}
+
+.section-roadmap::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }

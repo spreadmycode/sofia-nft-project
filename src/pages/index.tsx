@@ -1,6 +1,5 @@
 import Head from 'next/head'
-
-import { useState, ChangeEvent, useRef } from "react";
+import { useState, ChangeEvent, useRef, useEffect } from "react";
 import { Toaster } from 'react-hot-toast';
 import { useWallet } from "@solana/wallet-adapter-react";
 import useCandyMachine from '../hooks/use-candy-machine';
@@ -12,9 +11,12 @@ import Countdown from 'react-countdown';
 import usePresale from '../hooks/use-presale';
 import toast from 'react-hot-toast';
 import { useWindowSize } from '../hooks/use-window-size';
+import { useHorizontalScroll } from '../hooks/use-horizontal-scroll';
+import { useLocalStorage } from '@solana/wallet-adapter-react';
 
 const Home = () => {
   const [balance] = useWalletBalance();
+  const [tag, setTag] = useLocalStorage('TAG', '');
   const [activeFaqIndex, setActiveFaqIndex] = useState(-1);
   const {width, height} = useWindowSize();
   const [isActive, setIsActive] = useState(false);
@@ -23,13 +25,11 @@ const Home = () => {
   const wallet = useWallet();
 
   const whyusRef = useRef(null);
-  const roadmapRef = useRef(null);
+  const roadmapRef = useHorizontalScroll();
   const benefitsRef = useRef(null);
   const attributesRef = useRef(null);
   const teamRef = useRef(null);
   const faqRef = useRef(null);
-  const launchpadRef = useRef(null);
-  const marketplaceRef = useRef(null);
 
   const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
   const [isLoading, isPossibleMint] = usePresale();
@@ -56,6 +56,44 @@ const Home = () => {
     }
   }
 
+  const scrollToRef = (ref: any) => {
+    window.scroll(
+        {
+          top: ref.current.offsetTop,
+          behavior: "smooth",
+        }
+    );
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (tag == '') return;
+
+      switch (tag) {
+        case 'WHYUS':
+          scrollToRef(whyusRef);
+          break;
+        case 'ROADMAP':
+          scrollToRef(roadmapRef);
+          break;
+        case 'BENEFITS':
+          scrollToRef(benefitsRef);
+          break;
+        case 'ATTRIBUTES':
+          scrollToRef(attributesRef);
+          break;
+        case 'TEAM':
+          scrollToRef(teamRef);
+          break;
+        case 'FAQ':
+          scrollToRef(faqRef);
+          break;
+      }
+
+      setTag('');
+    })();
+  }, []);
+
   return (
     <main>
       <Toaster />
@@ -66,7 +104,7 @@ const Home = () => {
         <link rel="icon" href="/icon.png" />
       </Head>
 
-      <Header whyusRef={whyusRef} roadmapRef={roadmapRef} benefitsRef={benefitsRef} attributesRef={attributesRef} teamRef={teamRef} faqRef={faqRef} launchpadRef={launchpadRef}  />
+      <Header whyusRef={whyusRef} roadmapRef={roadmapRef} benefitsRef={benefitsRef} attributesRef={attributesRef} teamRef={teamRef} faqRef={faqRef} />
 
       {(width > 768) ?
       <section>
@@ -124,7 +162,7 @@ const Home = () => {
         
       </section>
 
-      <section ref={launchpadRef}>
+      <section>
         <div className="w-full md:h-screen flex flex-col md:flex-row justify-center items-center p-10 space-x-5">
           <div className="z-order-content">
             <h5 className="text-white presale-title drop-shadow-lg">PANDA WARRIORS PRE-SALE</h5>
@@ -226,7 +264,21 @@ const Home = () => {
         </div>
       </section>
 
-      <section ref={roadmapRef}>
+      <section ref={roadmapRef} className="section-roadmap">
+        <div className="panel-roadmap">
+          <div className="panel-roadmap-image">
+            <img src={'/images/roadmap1.jpg'} width={(width > 768) ? "100%" : '768px'} />
+          </div>
+          <div className="panel-roadmap-image">
+            <img src={'/images/roadmap2.jpg'} width={(width > 768) ? "100%" : '768px'} />
+          </div>
+          <div className="panel-roadmap-image">
+            <img src={'/images/roadmap3.jpg'} width={(width > 768) ? "100%" : '768px'} />
+          </div>
+          <div className="panel-roadmap-image">
+            <img src={'/images/roadmap4.jpg'} width={(width > 768) ? "100%" : '768px'} />
+          </div>
+        </div>
       </section>
 
       <section ref={benefitsRef}>
