@@ -169,7 +169,7 @@ const Home = () => {
           <div className="z-order-content">
             <h5 className="text-white presale-title drop-shadow-lg">PANDA WARRIORS PRE-SALE</h5>
             <p className="text-white presale-desc">
-              Be first to get your hands on the Panda Warriors NFT. Limited 1500 registration passes with max 3 NFT per wallet.
+              Be the first to get your hands on the Panda Warriors NFT. Limited 1500 registration passes with max 3 NFT per wallet.
               <br />
               <br />
               Special early adopters price 1 SOL.
