@@ -112,7 +112,7 @@ const Home = () => {
           <div>
             <h3 className="text-white text-center overview-title drop-shadow-lg">PANDA WARRIORS</h3>
             <p className="text-white text-center overview-desc px-5 md:px-24">
-              Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicklet, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
+              Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
             </p>
           </div>
         </div>
@@ -125,7 +125,7 @@ const Home = () => {
         <div className="">
           <h3 className="text-white text-center overview-title drop-shadow-lg">PANDA WARRIORS</h3>
           <p className="text-white text-center overview-desc px-5 md:px-24">
-            Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicklet, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
+            Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
           </p>
         </div>
       </section>
@@ -149,10 +149,12 @@ const Home = () => {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 mt-16">
-              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold m-2 rounded inline-flex items-center justify-center py-2 space-x-2 col-span-1 md:col-start-2 z-order-top">
-                <img src={'/images/icon_button_discord.png'} width={20} height={20} />
-                <span>Join Discord</span>
-              </button>
+              <a href="https://discord.com/invite/EaefjHZJKH" target="_blank" className="m-2 col-span-1 md:col-start-2 z-order-top">
+                <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded inline-flex items-center justify-center py-2 space-x-2 w-full">
+                  <img src={'/images/icon_button_discord.png'} width={20} height={20} />
+                  <span>Join Discord</span>
+                </button>
+              </a>
               <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3 z-order-top">
                 Mint Here Soon
               </button>
@@ -172,10 +174,12 @@ const Home = () => {
               <br />
               Special early adopters price 1 SOL.
             </p>
-            <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded inline-flex items-center justify-center w-52 py-2 space-x-2 mt-10">
-              <span>Be the First</span>
-              <img src={'/images/icon_missile.png'} width={20} height={20} />
-            </button>
+            <a href="https://forms.gle/WPXZiMiiGPUeeHX18" target="_blank">
+              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded inline-flex items-center justify-center w-52 py-2 space-x-2 mt-10">
+                <span>Be the First</span>
+                <img src={'/images/icon_missile.png'} width={20} height={20} />
+              </button>
+            </a>
           </div>
           <div className="flex justify-center items-center w-full md:w-2/5 mt-5">
             <img src={'/images/panda.png'} />
