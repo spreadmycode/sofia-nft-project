@@ -351,7 +351,7 @@ const Home = () => {
             <div className="flex flex-col space-y-2">
               <h3 className="text-white text-center text-section-title drop-shadow-lg">TRAITS</h3>
               <p className="text-white text-center overview-desc px-5 md:px-32">
-                Panda Warriors NFT Collection is generated out of 240 different hand-drawn traits. Some traits are rarer than others, classifying all 10,000 Panda Warriors rarity from common, uncommon, rare to super rare. 1 of 1 Panda Warriors are exclusively drawn, and not generated, their traits are 100% unique. The traits include background, body skin, bodywear, eyes, ears, hat, mouth shape, mouth accessories, tools. Soon after minting, you will be able to check the rarity score of your Panda Warriors and find out how rare your Panda Warrior is.
+                Panda Warriors NFT Collection is generated out of 240 different hand-drawn traits. Some traits are rarer than others, classifying all 10,000 Panda Warriors rarity from common, uncommon, rare to super rare. There are only 12 unique 1 of 1 Panda Warriors NFTs that having 100% exclusive combination of traits, making them one-of-a-kind pieces. The traits include background, body skin, bodywear, eyes, ears, hat, mouth shape, mouth accessories, tools. Soon after minting, you will be able to check the rarity score of your Panda Warriors and find out how rare your Panda Warrior is.
               </p>
             </div>
           </div>
