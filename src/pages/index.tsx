@@ -1,12 +1,11 @@
 import Head from 'next/head'
-import { Fragment, useState, ChangeEvent, useRef, useEffect } from "react";
+import { Fragment, useState, useRef, useEffect } from "react";
 import { Toaster } from 'react-hot-toast';
 import { useWallet } from "@solana/wallet-adapter-react";
 import useCandyMachine from '../hooks/use-candy-machine';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import useWalletBalance from '../hooks/use-wallet-balance';
-import { shortenAddress } from '../utils/candy-machine';
 import Countdown from 'react-countdown';
 import usePresale from '../hooks/use-presale';
 import toast from 'react-hot-toast';
@@ -48,6 +47,11 @@ const Home = () => {
       toast.error("Please connect wallet first.");
       return;
     }
+
+    if (isSoldOut) {
+      toast.success("Sorry. Panda Warriors are sold out.");
+    }
+
     switch (mintStatus) {
       case MINT_STATUS.POSSIBLE:
         setVisibleCheckModal(true);
@@ -59,7 +63,7 @@ const Home = () => {
         toast.error("Mint failed! You can't hold over 3 Panda Warriors.");
         break;
       case MINT_STATUS.WAIT_OPENING:
-        toast.error("Minting date will be announced soon, stay tuned!");
+        toast.success("Minting date will be announced soon, stay tuned!");
         break;
     }
   }
@@ -124,7 +128,12 @@ const Home = () => {
         return;
       }
 
-      const possibleQuantity = MAX_NFT_HOLD_COUNT - currentHoldedCount;
+      let possibleQuantity = MAX_NFT_HOLD_COUNT - currentHoldedCount;
+      if (possibleQuantity <= 0) {
+        toast.error("You can't mint anymore.");
+        return;
+      }
+      
       let realQuantity: number = quantity;
       if (quantity > possibleQuantity) {
         realQuantity = possibleQuantity;
@@ -274,13 +283,15 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="panel-mint-timer invisible">
-            <span>
-              <span className="text-timer-big">33</span> <span className="text-timer-small">Days</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-              <span className="text-timer-big">2</span> <span className="text-timer-small">Hrs</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-              <span className="text-timer-big">10</span> <span className="text-timer-small">Min</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="text-timer-big">29</span> <span className="text-timer-small">Sec</span></span>
-          </div>
+          {
+            !isActive &&
+            <Countdown
+              date={mintStartDate}
+              onMount={({ completed }) => completed && setIsActive(true)}
+              onComplete={() => setIsActive(true)}
+              renderer={renderCounter}
+            />
+          }
         </div>
       </section>
 
@@ -745,71 +756,20 @@ const Home = () => {
           ></div>
         </div>
       }
-
-      {/* <div className="flex flex-col justify-center items-center flex-1 space-y-3 mt-20">
-
-        {!wallet.connected && <span
-          className="text-gray-800 font-bold text-2xl cursor-default">
-          NOT CONNECTED, PLEASE CLICK SELECT WALLET...
-        </span>}
-
-        {wallet.connected &&
-          <p className="text-gray-800 font-bold text-lg cursor-default">Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}</p>
-        }
-
-        {wallet.connected &&
-          <>
-            <p className="text-gray-800 font-bold text-lg cursor-default">Balance: {(balance || 0).toLocaleString()} SOL</p>
-            <p className="text-gray-800 font-bold text-lg cursor-default">Available / Minted / Total: {nftsData.itemsRemaining} / {nftsData.itemsRedeemed} / {nftsData.itemsAvailable}</p>
-          </>
-        }
-
-        <div className="flex flex-col justify-center items-center">
-
-          {wallet.connected && 
-            (
-              isLoading ?
-              <div className="loader"></div>
-              :
-              <>
-                <input 
-                  min={1}
-                  max={3}
-                  type="number" 
-                  onChange={(e) => {setQuantity(Number(e.target.value));}} 
-                  style={{border: 'solid 1px grey', textAlign: 'center', width: '50%', margin: 5}} 
-                  value={quantity} />
-                <button
-                  disabled={isSoldOut || isMinting || !isActive}
-                  onClick={handleMintAction}
-                  className="w-full mt-3 bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded"
-                >
-                  {isSoldOut ? (
-                    "SOLD OUT"
-                  ) : isActive ?
-                    <span>MINT {quantity} {isMinting && 'LOADING...'}</span> :
-                    <Countdown
-                      date={mintStartDate}
-                      onMount={({ completed }) => completed && setIsActive(true)}
-                      onComplete={() => setIsActive(true)}
-                      renderer={renderCounter}
-                    />
-                  }
-                </button>
-              </>
-            )
-          }
-        </div>
-      </div> */}
     </main>
   );
 };
 
 const renderCounter = ({ days, hours, minutes, seconds }: any) => {
   return (
-    <span className="text-gray-800 font-bold text-2xl cursor-default">
-      Live in {days} days, {hours} hours, {minutes} minutes, {seconds} seconds
-    </span>
+    <div className="panel-mint-timer">
+      <span>
+        <span className="text-timer-big">{days}</span> <span className="text-timer-small">Days</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <span className="text-timer-big">{hours}</span> <span className="text-timer-small">Hrs</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <span className="text-timer-big">{minutes}</span> <span className="text-timer-small">Min</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span className="text-timer-big">{seconds}</span> <span className="text-timer-small">Sec</span>
+      </span>
+    </div>
   );
 };
 

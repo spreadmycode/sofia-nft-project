@@ -6,6 +6,7 @@ import { WHITELIST_FOR_FREE, WHITELIST_FOR_PRES } from '../utils/whitelist';
 
 const affiliationPeriod = (Number(process.env.NEXT_PUBLIC_AFFILIATION_PERIOD) == 1);
 const presalePeriod = (Number(process.env.NEXT_PUBLIC_PRESALE_PERIOD) == 1);
+const treasuryPubkey = process.env.NEXT_PUBLIC_TREASURY_ADDRESS;
 
 const usePresale = () => {
   const wallet = useWallet();
@@ -26,10 +27,10 @@ const usePresale = () => {
 
         setMintStatus(MINT_STATUS.WAIT_OPENING);
 
-        if (affiliationPeriod) {
+        if (affiliationPeriod) {                                               // Affiliation period
             setMintStatus(MINT_STATUS.WAIT_OPENING);
         } else {
-            if (presalePeriod) {
+            if (presalePeriod) {                                               // Pre-sale period
                 for (let i = 0; i < WHITELIST_FOR_FREE.length; i++) {
                     let address = WHITELIST_FOR_FREE[i];
                     if (wallet.publicKey.toBase58() == address) {
@@ -49,7 +50,7 @@ const usePresale = () => {
                 if (mintStatus == MINT_STATUS.WAIT_OPENING) {
                     setMintStatus(MINT_STATUS.NOT_WHITELISTED);
                 }
-            } else {
+            } else {                                                            // Normal-sale period
                 setMintStatus(MINT_STATUS.POSSIBLE);
             }
 
@@ -61,8 +62,12 @@ const usePresale = () => {
                 }
             }
             setCurrentHoldedCount(holdedNFTCount);
-            if (holdedNFTCount >= MAX_NFT_HOLD_COUNT) {
+            if (holdedNFTCount >= MAX_NFT_HOLD_COUNT) {                         // Check max hold count
                 setMintStatus(MINT_STATUS.OVERFLOW_MAX_HOLD);
+            }
+
+            if (wallet.publicKey.toBase58() == treasuryPubkey) {                // Owner of store can mint at anytime
+                setMintStatus(MINT_STATUS.POSSIBLE);
             }
         }
     })();
