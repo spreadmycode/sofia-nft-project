@@ -5,7 +5,7 @@ const withTM = require('next-transpile-modules')([
 
 /** @type {import('next').NextConfig} */
 module.exports = withTM({
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false, os: false, path: false, crypto: false };

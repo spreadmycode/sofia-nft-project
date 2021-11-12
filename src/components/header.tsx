@@ -15,9 +15,6 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
     setIsMenuShowed(!isMenuShowed);
   }
 
-  const handleConnectWallet = () => {
-  }
-
   const scrollTo = (ref: any, tag: string) => {
     if (ref == undefined || ref == null) {
       setTag(tag);
@@ -71,16 +68,12 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
               </button>
             </Link>
           </div>
-          <button className="button-connect" onClick={handleConnectWallet}>
-            CONNECT WALLET
-          </button>
+          <WalletMultiButton className="button-connect" />
         </>
         :
         <>
           <div className="flex-grow flex justify-center items-center">
-            <button className="button-connect" onClick={handleConnectWallet}>
-              CONNECT WALLET
-            </button>
+            <WalletMultiButton className="button-connect" />
           </div>
           <button className="inline-flex justify-center items-center pr-3" onClick={handleClickMenu} >
             <img src={'/images/icon_menu.png'} width="35" />

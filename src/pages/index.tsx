@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState, ChangeEvent, useRef, useEffect } from "react";
+import { Fragment, useState, ChangeEvent, useRef, useEffect } from "react";
 import { Toaster } from 'react-hot-toast';
 import { useWallet } from "@solana/wallet-adapter-react";
 import useCandyMachine from '../hooks/use-candy-machine';
@@ -13,16 +13,27 @@ import toast from 'react-hot-toast';
 import { useWindowSize } from '../hooks/use-window-size';
 import { useHorizontalScroll } from '../hooks/use-horizontal-scroll';
 import { useLocalStorage } from '@solana/wallet-adapter-react';
+import { Dialog, Transition } from '@headlessui/react';
+import useAffiliation from '../hooks/use-affiliation';
+import { AFFILIATION_CODE_LEN, MAX_NFT_HOLD_COUNT, MINT_STATUS } from '../utils/constant';
 
 const Home = () => {
+  const wallet = useWallet();
   const [balance] = useWalletBalance();
-  const [tag, setTag] = useLocalStorage('TAG', '');
-  const [activeFaqIndex, setActiveFaqIndex] = useState(-1);
-  const {width, height} = useWindowSize();
   const [isActive, setIsActive] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
+  const [isMintLoading, mintStatus, currentHoldedCount] = usePresale();
 
-  const wallet = useWallet();
+  const {width, height} = useWindowSize();
+  const [tag, setTag] = useLocalStorage('TAG', '');
+  const { isAffiliationLoading, getCodeByWallet, getPubKeyByCode, insertCode } = useAffiliation();
+  
+  const [code, setCode] = useState('');
+  const [visibleAffiliationModal, setVisibleAffiliationModal] = useState(false);
+  const [visibleCheckModal, setVisibleCheckModal] = useState(false);
+  const cancelButtonRef = useRef(null);
+  const [activeFaqIndex, setActiveFaqIndex] = useState(-1);
 
   const whyusRef = useRef(null);
   const roadmapRef = useHorizontalScroll();
@@ -31,20 +42,25 @@ const Home = () => {
   const teamRef = useRef(null);
   const faqRef = useRef(null);
 
-  const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
-  const [isLoading, isPossibleMint] = usePresale();
-  const [mintClicked, setMintClicked] = useState(false);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    setQuantity(value);
-  }
-
-  const handleMintAction = async () => {
-    if (isPossibleMint) {
-      await onMintNFT(quantity);
-    } else {
-      toast.error("Mint failed! You are not in whitelist!");
+  // Handlers
+  const handleMintAction = () => {
+    if (!wallet.connected) {
+      toast.error("Please connect wallet first.");
+      return;
+    }
+    switch (mintStatus) {
+      case MINT_STATUS.POSSIBLE:
+        setVisibleCheckModal(true);
+        break;
+      case MINT_STATUS.NOT_WHITELISTED:
+        toast.error("Mint failed! You are not in White List.");
+        break;
+      case MINT_STATUS.OVERFLOW_MAX_HOLD:
+        toast.error("Mint failed! You can't hold over 3 Panda Warriors.");
+        break;
+      case MINT_STATUS.WAIT_OPENING:
+        toast.error("Minting date will be announced soon, stay tuned!");
+        break;
     }
   }
 
@@ -53,6 +69,61 @@ const Home = () => {
         setActiveFaqIndex(-1);
     } else {
         setActiveFaqIndex(index);
+    }
+  }
+
+  const handleAffiliation = async () => {
+    if (wallet.connected) {
+      
+      const existCode = await getCodeByWallet(wallet);
+
+      if (existCode == '') {
+        setVisibleAffiliationModal(true);
+      } else {
+        toast.success(`You have already generated code: ${existCode}`);
+      }
+    } else {
+      toast.error("Please connect wallet first.");
+    }
+  }
+
+  const handleAffiliationCode = async () => {
+    if (code.length != AFFILIATION_CODE_LEN) {
+      toast.error("Code should be 6 letters(digits and chars).");
+      return;
+    }
+
+    const existPubkey = await getPubKeyByCode(code);
+
+    if (existPubkey == '') {
+      
+      await insertCode(wallet, code);
+
+      toast.success(`You successfully generated code: ${code}`);
+
+      setVisibleAffiliationModal(false);
+    } else {
+      toast.error("This code is aready existed.");
+    }
+  }
+
+  const handleCheckAffiliation = async () => {
+    if (code.length != AFFILIATION_CODE_LEN) {
+      toast.error("Code should be 6 letters(digits and chars).");
+      return;
+    }
+
+    const existPubkey = await getPubKeyByCode(code);
+
+    if (existPubkey == '') {
+      toast.error("This code is not existed.");
+    } else {
+      const possibleQuantity = MAX_NFT_HOLD_COUNT - currentHoldedCount;
+      let realQuantity: number = quantity;
+      if (quantity > possibleQuantity) {
+        realQuantity = possibleQuantity;
+      }
+      await onMintNFT(realQuantity, existPubkey);
     }
   }
 
@@ -155,7 +226,7 @@ const Home = () => {
                   <span>Join Discord</span>
                 </button>
               </a>
-              <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3 z-order-top">
+              <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3 z-order-top" onClick={handleAffiliation}>
                 Mint Here Soon
               </button>
             </div>
@@ -516,6 +587,142 @@ const Home = () => {
 
       <Footer />
 
+      <Transition.Root show={visibleAffiliationModal} as={Fragment}>
+        <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setVisibleAffiliationModal}>
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div className="sm:flex sm:items-start">
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                      <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                        Generate Affiliation Code
+                      </Dialog.Title>
+                      <div className="mt-2">
+                        <p className="text-sm text-gray-500">
+                          Please type your own code and share it with your friend or family.
+                          You can get extra SOL when they mint.
+                        </p>
+                        <input maxLength={6} minLength={6} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)"></input>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={handleAffiliationCode}
+                  >
+                    Generate
+                  </button>
+                  <button
+                    type="button"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={() => setVisibleAffiliationModal(false)}
+                    ref={cancelButtonRef}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
+
+      <Transition.Root show={visibleCheckModal} as={Fragment}>
+        <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setVisibleCheckModal}>
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div className="sm:flex sm:items-start">
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                      <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                        Check Affiliation Code
+                      </Dialog.Title>
+                      <div className="mt-2">
+                        <p className="text-sm text-gray-500">
+                          Please type code which was received from affiliator.
+                          If you have no, please type 000001.
+                        </p>
+                        <input maxLength={6} minLength={6} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)"></input>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={handleCheckAffiliation}
+                  >
+                    Generate
+                  </button>
+                  <button
+                    type="button"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={() => setVisibleCheckModal(false)}
+                    ref={cancelButtonRef}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
+
       {/* <div className="flex flex-col justify-center items-center flex-1 space-y-3 mt-20">
 
         {!wallet.connected && <span
@@ -544,9 +751,9 @@ const Home = () => {
               <>
                 <input 
                   min={1}
-                  max={15}
+                  max={3}
                   type="number" 
-                  onChange={(e) => handleChange(e)} 
+                  onChange={(e) => {setQuantity(Number(e.target.value));}} 
                   style={{border: 'solid 1px grey', textAlign: 'center', width: '50%', margin: 5}} 
                   value={quantity} />
                 <button

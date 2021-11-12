@@ -30,6 +30,7 @@ export default function useCandyMachine() {
   const [, setBalance] = useWalletBalance();
   const [candyMachine, setCandyMachine] = useState<CandyMachine>();
   const wallet = useWallet();
+  const [affiliatorPubkey, setAffiliatorPubkey] = useState('');
   const [nftsData, setNftsData] = useState<any>({} = {
     itemsRemaining: 0,
     itemsRedeemed: 0,
@@ -248,7 +249,9 @@ export default function useCandyMachine() {
     }
   };
 
-  const onMintNFT = async (quantity: number) => {
+  const onMintNFT = async (quantity: number, affilatorPubkey: string) => {
+    setAffiliatorPubkey(affilatorPubkey);
+    
     if (quantity == 1) {
       await onMint();
     } else if (quantity > 1) {

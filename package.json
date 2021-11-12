@@ -48,7 +48,16 @@
     "react-google-recaptcha-v3": "^1.9.5",
     "react-hot-toast": "^2.1.1",
     "react-is": "^17.0.2",
-    "react-share": "^4.4.0"
+    "react-share": "^4.4.0",
+    "@apollo/client": "^3.0.2",
+    "@hapi/iron": "6.0.0",
+    "apollo-server-micro": "^2.14.2",
+    "cookie": "^0.4.1",
+    "graphql": "^14.0.2",
+    "moment": "^2.27.0",
+    "prop-types": "^15.6.2",
+    "serverless-mysql": "^1.5.4",
+    "uuid": "8.1.0"
   },
   "devDependencies": {
     "@types/react": "17.0.30",

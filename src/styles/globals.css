@@ -84,24 +84,25 @@ section {
 /************************************** Header **************************/
 
 .button-connect {
-  background-color: #F1C40F;
-  color: black;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  width: 200px;
-  height: 50px;
+  background-color: #F1C40F !important;
+  color: black !important;
+  border-radius: 5px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  width: 200px !important;
+  height: 50px !important;
+  justify-content: center !important;
 }
 
 @media(max-width: 768px) {
   .button-connect {
-    font-size: 14px;
-    height: 35px;
+    font-size: 14px !important;
+    height: 35px !important;
   }
 }
 
 .button-connect:hover {
-  background-color: #fdd535;
+  background-color: #fdd535 !important;
 }
 
 .header-menu-item {
