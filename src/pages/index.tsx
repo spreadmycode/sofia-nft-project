@@ -118,6 +118,12 @@ const Home = () => {
     if (existPubkey == '') {
       toast.error("This code is not existed.");
     } else {
+
+      if (existPubkey == wallet.publicKey?.toBase58()) {
+        toast.error("You can't use your own code for mint.");
+        return;
+      }
+
       const possibleQuantity = MAX_NFT_HOLD_COUNT - currentHoldedCount;
       let realQuantity: number = quantity;
       if (quantity > possibleQuantity) {
