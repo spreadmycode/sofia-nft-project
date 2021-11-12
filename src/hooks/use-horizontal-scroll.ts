@@ -12,7 +12,7 @@ export function useHorizontalScroll() {
           return;
         }
 
-        if (el.scrollLeft >= el.offsetWidth * 3 && e.deltaY > 0) {
+        if (el.scrollLeft >= el.offsetWidth * 4 && e.deltaY > 0) {
           return;
         }
 

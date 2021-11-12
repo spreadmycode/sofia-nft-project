@@ -9,7 +9,7 @@ const presalePeriod = (Number(process.env.NEXT_PUBLIC_PRESALE_PERIOD) == 1);
 
 const usePresale = () => {
   const wallet = useWallet();
-  const [isMintLoading, nfts]: any = useWalletNfts();
+  const [isStatusLoading, nfts]: any = useWalletNfts();
   const [mintStatus, setMintStatus] = useState(MINT_STATUS.WAIT_OPENING);
   const [currentHoldedCount, setCurrentHoldedCount] = useState(0);
 
@@ -66,9 +66,9 @@ const usePresale = () => {
             }
         }
     })();
-  }, [wallet, isMintLoading]);
+  }, [wallet, isStatusLoading]);
 
-  return [isMintLoading, mintStatus, currentHoldedCount];
+  return [isStatusLoading, mintStatus, currentHoldedCount];
 }
 
 export default usePresale;

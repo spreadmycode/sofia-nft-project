@@ -23,7 +23,7 @@ const Home = () => {
   const [isActive, setIsActive] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
-  const [isMintLoading, mintStatus, currentHoldedCount] = usePresale();
+  const [isStatusLoading, mintStatus, currentHoldedCount] = usePresale();
 
   const {width, height} = useWindowSize();
   const [tag, setTag] = useLocalStorage('TAG', '');
@@ -352,6 +352,9 @@ const Home = () => {
           </div>
           <div className="panel-roadmap-image">
             <img src={'/images/roadmap4.jpg'} width={(width > 768) ? "100%" : '768px'} />
+          </div>
+          <div className="panel-roadmap-image">
+            <img src={'/images/roadmap5.jpg'} width={(width > 768) ? "100%" : '768px'} />
           </div>
         </div>
       </section>
@@ -722,6 +725,20 @@ const Home = () => {
           </div>
         </Dialog>
       </Transition.Root>
+
+      {(wallet.connected && (isAffiliationLoading || isStatusLoading || isMinting)) &&
+        <div className="w-full h-full fixed block top-0 left-0 bg-black opacity-75 z-50 flex justify-center items-center">
+          <div
+            className="
+              animate-spin
+              rounded-full
+              h-32
+              w-32
+              border-t-2 border-b-2 border-yellow-600
+            "
+          ></div>
+        </div>
+      }
 
       {/* <div className="flex flex-col justify-center items-center flex-1 space-y-3 mt-20">
 
