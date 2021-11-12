@@ -14,7 +14,7 @@ import { useHorizontalScroll } from '../hooks/use-horizontal-scroll';
 import { useLocalStorage } from '@solana/wallet-adapter-react';
 import { Dialog, Transition } from '@headlessui/react';
 import useAffiliation from '../hooks/use-affiliation';
-import { AFFILIATION_CODE_LEN, MAX_NFT_HOLD_COUNT, MINT_STATUS } from '../utils/constant';
+import { AFFILIATION_CODE_LEN, MINT_STATUS } from '../utils/constant';
 
 const Home = () => {
   const wallet = useWallet();
@@ -22,7 +22,7 @@ const Home = () => {
   const [isActive, setIsActive] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
-  const [isStatusLoading, mintStatus, currentHoldedCount] = usePresale();
+  const [isStatusLoading, mintStatus, currentHoldedCount, maxNFTHoldCount] = usePresale();
 
   const {width, height} = useWindowSize();
   const [tag, setTag] = useLocalStorage('TAG', '');
@@ -128,12 +128,12 @@ const Home = () => {
         return;
       }
 
-      let possibleQuantity = MAX_NFT_HOLD_COUNT - currentHoldedCount;
+      let possibleQuantity = maxNFTHoldCount - currentHoldedCount;
       if (possibleQuantity <= 0) {
-        toast.error("You can't mint anymore.");
+        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`);
         return;
       }
-      
+
       let realQuantity: number = quantity;
       if (quantity > possibleQuantity) {
         realQuantity = possibleQuantity;

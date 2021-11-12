@@ -1,6 +1,6 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect, useState } from 'react';
-import { CURRENT_COLLECTION, MAX_NFT_HOLD_COUNT, MINT_STATUS } from '../utils/constant';
+import { CURRENT_COLLECTION, PRESALE_MAX_NFT_HOLD_COUNT, NORMALSALE_MAX_NFT_HOLD_COUNT, MINT_STATUS } from '../utils/constant';
 import useWalletNfts from './use-wallet-nfts';
 import { WHITELIST_FOR_FREE, WHITELIST_FOR_PRES } from '../utils/whitelist';
 
@@ -13,6 +13,7 @@ const usePresale = () => {
   const [isStatusLoading, nfts]: any = useWalletNfts();
   const [mintStatus, setMintStatus] = useState(MINT_STATUS.WAIT_OPENING);
   const [currentHoldedCount, setCurrentHoldedCount] = useState(0);
+  const [maxNFTHoldCount, setMaxNFTHoldCount] = useState(PRESALE_MAX_NFT_HOLD_COUNT);
 
   useEffect(() => {
     (async () => {
@@ -31,6 +32,8 @@ const usePresale = () => {
             setMintStatus(MINT_STATUS.WAIT_OPENING);
         } else {
             if (presalePeriod) {                                               // Pre-sale period
+                setMaxNFTHoldCount(PRESALE_MAX_NFT_HOLD_COUNT);
+
                 for (let i = 0; i < WHITELIST_FOR_FREE.length; i++) {
                     let address = WHITELIST_FOR_FREE[i];
                     if (wallet.publicKey.toBase58() == address) {
@@ -51,6 +54,7 @@ const usePresale = () => {
                     setMintStatus(MINT_STATUS.NOT_WHITELISTED);
                 }
             } else {                                                            // Normal-sale period
+                setMaxNFTHoldCount(NORMALSALE_MAX_NFT_HOLD_COUNT);
                 setMintStatus(MINT_STATUS.POSSIBLE);
             }
 
@@ -62,7 +66,7 @@ const usePresale = () => {
                 }
             }
             setCurrentHoldedCount(holdedNFTCount);
-            if (holdedNFTCount >= MAX_NFT_HOLD_COUNT) {                         // Check max hold count
+            if (holdedNFTCount >= maxNFTHoldCount) {                         // Check max hold count
                 setMintStatus(MINT_STATUS.OVERFLOW_MAX_HOLD);
             }
 
@@ -73,7 +77,7 @@ const usePresale = () => {
     })();
   }, [wallet, isStatusLoading]);
 
-  return [isStatusLoading, mintStatus, currentHoldedCount];
+  return [isStatusLoading, mintStatus, currentHoldedCount, maxNFTHoldCount];
 }
 
 export default usePresale;
