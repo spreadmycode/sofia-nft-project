@@ -66,7 +66,7 @@ const usePresale = () => {
                 }
             }
             setCurrentHoldedCount(holdedNFTCount);
-            if (holdedNFTCount >= maxNFTHoldCount) {                         // Check max hold count
+            if (holdedNFTCount >= maxNFTHoldCount) {                            // Check max hold count
                 setMintStatus(MINT_STATUS.OVERFLOW_MAX_HOLD);
             }
 

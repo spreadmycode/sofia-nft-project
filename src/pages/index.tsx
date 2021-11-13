@@ -50,6 +50,7 @@ const Home = () => {
 
     if (isSoldOut) {
       toast.success("Sorry. Panda Warriors are sold out.");
+      return;
     }
 
     switch (mintStatus) {
@@ -127,6 +128,8 @@ const Home = () => {
         toast.error("You can't use your own code for mint.");
         return;
       }
+
+      setVisibleCheckModal(false);
 
       let possibleQuantity = maxNFTHoldCount - currentHoldedCount;
       if (possibleQuantity <= 0) {
@@ -646,7 +649,7 @@ const Home = () => {
                         <p className="text-sm text-gray-500">
                           Create your Unique Code (UC) and share it with your friends. Get 10% reward of each NFT minted with your UC! You can’t use your own code for minting, someone has to invite you as well. If nobody invited you, contact us on Discord and get UC to mint your NFT.
                         </p>
-                        <input maxLength={6} minLength={6} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)"></input>
+                        <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)" />
                       </div>
                     </div>
                   </div>
@@ -714,7 +717,7 @@ const Home = () => {
                           Please type code which was received from affiliator.
                           If you have no, please type 000001.
                         </p>
-                        <input maxLength={6} minLength={6} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)"></input>
+                        <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)" />
                       </div>
                     </div>
                   </div>
@@ -725,7 +728,7 @@ const Home = () => {
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={handleCheckAffiliation}
                   >
-                    Generate
+                    Mint
                   </button>
                   <button
                     type="button"

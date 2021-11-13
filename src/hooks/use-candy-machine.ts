@@ -7,7 +7,7 @@ import useWalletBalance from "./use-wallet-balance";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { sleep } from "../utils/utility";
 
-const MINT_PRICE_SOL = Number(process.env.NEXT_MINT_PRICE_SOL);
+const MINT_PRICE_SOL = Number(process.env.NEXT_PUBLIC_MINT_PRICE_SOL!);
 
 const treasury = new anchor.web3.PublicKey(
   process.env.NEXT_PUBLIC_TREASURY_ADDRESS!
@@ -106,11 +106,15 @@ export default function useCandyMachine() {
         );
 
       if (wallet.connected && candyMachine?.program && wallet.publicKey) {
+        const affiliator = new anchor.web3.PublicKey(affiliatorPubkey);
+        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / 9.0;
         const mintTxId = await mintOneToken(
           candyMachine,
           config,
           wallet.publicKey,
-          treasury
+          treasury,
+          affiliator,
+          affiliateAmount,
         );
 
         const status = await awaitTransactionSignatureConfirmation(
@@ -122,7 +126,7 @@ export default function useCandyMachine() {
         );
 
         if (!status?.err) {
-          toast.success("Congratulations! Mint succeeded! Check the 'My Arts' page :)");
+          toast.success("Congratulations! You have just got PW.");
         } else {
           toast.error("Mint failed! Please try again!");
         }
@@ -170,14 +174,18 @@ export default function useCandyMachine() {
         );
       if (wallet.connected && candyMachine?.program && wallet.publicKey) {
         const oldBalance = await connection.getBalance(wallet?.publicKey) / LAMPORTS_PER_SOL;
-        const futureBalance = oldBalance - (MINT_PRICE_SOL * quantity)
+        const futureBalance = oldBalance - ((MINT_PRICE_SOL + (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / 9.0) * quantity)
 
+        const affiliator = new anchor.web3.PublicKey(affiliatorPubkey);
+        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / 9.0;
         const signedTransactions: any = await mintMultipleToken(
           candyMachine,
           config,
           wallet.publicKey,
           treasury,
-          quantity
+          quantity,
+          affiliator,
+          affiliateAmount
         );
 
         const promiseArray = [];
