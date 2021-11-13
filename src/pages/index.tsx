@@ -640,12 +640,11 @@ const Home = () => {
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        Generate Affiliation Code
+                        Generate Your Referral Code
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Please type your own code and share it with your friend or family.
-                          You can get extra SOL when they mint.
+                          Create your Unique Code (UC) and share it with your friends. Get 10% reward of each NFT minted with your UC! You can’t use your own code for minting, someone has to invite you as well. If nobody invited you, contact us on Discord and get UC to mint your NFT.
                         </p>
                         <input maxLength={6} minLength={6} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)"></input>
                       </div>
