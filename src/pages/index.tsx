@@ -242,7 +242,7 @@ const Home = () => {
                 </button>
               </a>
               <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3 z-order-top" onClick={handleAffiliation}>
-                Mint Here Soon
+                GET REFFERRAL CODE
               </button>
             </div>
           </div>          
