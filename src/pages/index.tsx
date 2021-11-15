@@ -399,7 +399,7 @@ const Home = () => {
                   <img src={'/images/benefits2.png'} className="image-benefit" />
               </div>
               <h5 className="panel-why-desc-title">PW RAFFLE GAMES</h5>
-              <p className="panel-why-desc-text">PW is your lucky NFTicket to join the Raffle Draw and win Exciting Prizes (up to 60 SOL in value). 12 Raffle Games will be played during 12 months from minting. 1 PW = 12 Entries.</p>
+              <p className="panel-why-desc-text">PW NFT is your lucky NFTicket to enter the Raffle and WIN a piece of a virtual Land in one of the Top Metaverses (along with other valuable assets). 12 Raffle Games will be played during 12 months after minting. 1 PW = 12 Entries.</p>
             </div>
 
             <div className="md:col-span-1 panel-benefit flex flex-col space-y-2 p-5 panel-why-border-radius">
