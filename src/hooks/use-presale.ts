@@ -1,6 +1,6 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect, useState } from 'react';
-import { CURRENT_COLLECTION, PRESALE_MAX_NFT_HOLD_COUNT, NORMALSALE_MAX_NFT_HOLD_COUNT, MINT_STATUS } from '../utils/constant';
+import { PRESALE_MAX_NFT_HOLD_COUNT, NORMALSALE_MAX_NFT_HOLD_COUNT, MINT_STATUS } from '../utils/constant';
 import useWalletNfts from './use-wallet-nfts';
 import { WHITELIST_FOR_FREE, WHITELIST_FOR_PRES } from '../utils/whitelist';
 
@@ -58,13 +58,7 @@ const usePresale = () => {
                 setMintStatus(MINT_STATUS.POSSIBLE);
             }
 
-            let holdedNFTCount = 0;
-            for (let i = 0; i < nfts.length; i++) {
-                const nft = nfts[i];
-                if (nft.collection?.name == CURRENT_COLLECTION) {
-                    holdedNFTCount++;
-                }
-            }
+            let holdedNFTCount = nfts.length;
             setCurrentHoldedCount(holdedNFTCount);
             if (holdedNFTCount >= maxNFTHoldCount) {                            // Check max hold count
                 setMintStatus(MINT_STATUS.OVERFLOW_MAX_HOLD);
