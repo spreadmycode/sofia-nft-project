@@ -390,7 +390,7 @@ const Home = () => {
                 <img src={'/images/benefits1.png'} className="image-benefit" />
               </div>
               <h5 className="panel-why-desc-title">100% ROYALTY FOR THE COMMUNITY.</h5>
-              <p className="panel-why-desc-text">10% royalty from the secondary sales. 100% of Royalties collected in the Community Royalty Pool. These 100% Royalty rewards will be distributed back to the PW Holders in different forms  (blue-chip NFTs, Prizes other rewards).</p>
+              <p className="panel-why-desc-text">10% royalty from the secondary sales. 100% of Royalties collected in the Community Royalty Pool. Royalty pool will be used to growth the community, project development and awesome airdrops.</p>
               <div className="panel-benefit-background-tree w-1/4 h-full"></div>
             </div>
 
