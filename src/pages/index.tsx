@@ -61,7 +61,7 @@ const Home = () => {
         toast.error("Mint failed! You are not in White List.");
         break;
       case MINT_STATUS.OVERFLOW_MAX_HOLD:
-        toast.error("Mint failed! You can't hold over 3 Panda Warriors.");
+        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`);
         break;
       case MINT_STATUS.WAIT_OPENING:
         toast.success("Minting date will be announced soon, stay tuned!");
