@@ -415,7 +415,7 @@ const Home = () => {
                 <img src={'/images/benefits4.png'} className="image-benefit" />
               </div>
               <h5 className="panel-why-desc-title">TREASURE BOX</h5>
-              <p className="panel-why-desc-text">The Treasure Box will be filled with 2000 sol (once all 10,000 Panda Warriors has been successfully minted). 2000 sol will be reinvested in crypto projects (community vote) to grow our Community Treasury. In 3 months time, Panda Warriors’ Holders will start getting rewards from a Treasure Box.</p>
+              <p className="panel-why-desc-text">The Treasure Crypto Box will be filled with 2000 sol (once all 10,000 Panda Warriors has been successfully minted). PW holders will get an access to the Panda Warriors Crypto Club, being a member, you can attend regular online events and AMAs with crypto-experts and investors, gain valuable knowledge and precious experience.</p>
               <div className="panel-benefit-background-tree w-1/4 h-full"></div>
             </div>
 
