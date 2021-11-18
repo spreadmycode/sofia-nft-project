@@ -305,7 +305,7 @@ const Home = () => {
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">OUR MISSION</h5>
-                <p className="panel-why-desc-text">Create a hand-drawn NFT Collection, where each NFT provides an EXPERIENCE for Community, carries UTILITY and grows in VALUE OVER TIME.</p>
+                <p className="panel-why-desc-text">Build an Ecosystem that synergy Utilities, Knowledge, Experience and Longevity, making each member in our Community a winner. Providing necessary tools that will let each active member of PW Community enter a Millionaire Club one day.</p>
               </div>
               <div className="w-1/4 flex justify-center items-center">
                 <img src={'/images/overview1.png'} />
@@ -316,7 +316,7 @@ const Home = () => {
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">UTILITY</h5>
-                <p className="panel-why-desc-text">We believe NFTs, in general, have massive potential and impact on the entire world. NFTs are here to stay. Apart from being a nice piece of art, NFTs should have a utility purpose. Therefore, Panda Warriors NFT Collection has several utility features, which you will discover on our journey.</p>
+                <p className="panel-why-desc-text">We believe NFTs have massive potential and impact. Apart from being a nice art, Panda Warriors NFTs caries several utilities. Panda Warriors is your NFTicket that grants access to the PW Privilege Club,  PW LaunchPad access, gateway to the Metaverse and other ongoing utilities to be reviled as we move forward.</p>
               </div>
               <div className="w-1/4 flex justify-center items-center">
                 <img src={'/images/overview2.png'} />
@@ -327,7 +327,7 @@ const Home = () => {
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">EXPERIENCE</h5>
-                <p className="panel-why-desc-text">Experience plays a significant role in the success of the NFT project, the art itself is already a great experience, however, we wanted to create something more than just an ART for our community, therefore, be ready for different experiences (adventures) on our way. All upcoming experiences will be announced in our Discord.</p>
+                <p className="panel-why-desc-text">Experience plays a significant role in our project. Therefore, we are working on creating multiple experiences for our Community along the way. Starting from knowing each other and learning from each other, organizing virtual and live meetups, gaining valuable knowledge from experts, moving to the Metaverse together (building a Panda Village), playing games and so much more…</p>
               </div>
               <div className="w-1/4 flex justify-center items-center">
                 <img src={'/images/overview3.png'} />
@@ -338,21 +338,32 @@ const Home = () => {
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">LONGEVITY</h5>
-                <p className="panel-why-desc-text">Our mission is to build a strong community of like-minded people, art-lovers, NFT-enthusiasts, passionate NFT collectors. We have long-term goals to be achieved together. We will be sharing our goals with PW Community step-by-step, as we move forward. The roadmap will only show you the beginning of our journey, so make sure to follow Panda Warriors on Twitter for the latest updates.</p>
+                <p className="panel-why-desc-text">Panda Warriors are having a long way to go. Many will come, but only true Warriors will stay, those who understand our vision, contribute to our mission and support the community growth. Only by building a strong army of Warriors, we can achieve bigger goals together. To support the community growth, we will implement a buy-back function to raise the floor, stimulate community growth by rewarding leaders, investing in project development, building new utilities, creating new experiences. Our priority is to let every member of the community succeed. <br/><br/>Our MOTO: “EVERYONE WINS”.</p>
               </div>
               <div className="w-1/4 flex justify-center items-center">
                 <img src={'/images/overview4.png'} />
               </div>
             </div>
           </div>
-          <div className="w-full flex md:justify-start items-center z-order-content">
+          <div className="w-full flex md:justify-start items-center mb-10 z-order-content">
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
-                <h5 className="panel-why-desc-title">Our MOTO</h5>
-                <p className="panel-why-desc-text">“EVERYONE WINS”. We are building a Community, where EVERYONE WINS, from early adopters to those, who will be joining Panda Warriors later on. Growing our community of Panda Warriors over time is our priority and our strength.</p>
+                <h5 className="panel-why-desc-title">KNOWLEDGE</h5>
+                <p className="panel-why-desc-text">We believe that knowledge is the power, and the sooner you can obtain certain information, the more successful you become. Therefore, we created the PW Privilege Club - where each member gets access to valuable information and consistently learns from professionals in the industry. Being a member, you will have the privilege to meet experts in the crypto space, NFT, Metaverse and others. Get access to the knowledge you need to become successful in this fast-moving real-virtual reality.</p>
               </div>
               <div className="w-1/4 flex justify-center items-center">
                 <img src={'/images/overview5.png'} />
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex md:justify-end items-center z-order-content">
+            <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
+              <div className="w-3/4">
+                <h5 className="panel-why-desc-title">GROWTH</h5>
+                <p className="panel-why-desc-text">The Power of the Word of Mouth is our strength. We believe in the power of organic community growth, where members spread the word as they truly support the project, being PW holders themselves. Therefore, those Warriors who contribute to the community growth will always be rewarded. Starting from now, the Associate’s Program has been implemented. Becoming an Associate, you will get 10% of each NFT mint with your Unique Code. (Read details in FAQs)</p>
+              </div>
+              <div className="w-1/4 flex justify-center items-center">
+                {/* <img src={'/images/overview6.png'} /> */}
               </div>
             </div>
           </div>
@@ -415,7 +426,7 @@ const Home = () => {
                 <img src={'/images/benefits4.png'} className="image-benefit" />
               </div>
               <h5 className="panel-why-desc-title">TREASURE BOX</h5>
-              <p className="panel-why-desc-text">The Treasure Crypto Box will be filled with 2000 sol (once all 10,000 Panda Warriors has been successfully minted). PW holders will get an access to the Panda Warriors Crypto Club, being a member, you can attend regular online events and AMAs with crypto-experts and investors, gain valuable knowledge and precious experience.</p>
+              <p className="panel-why-desc-text">The Treasure Crypto Box will be filled with 2000 sol (once all 10,000 Panda Warriors has been successfully minted). The goal is to consistently grow the Community Treasury by reinvesting in high-potential crypto projects, tokens/coins (community vote). PW Community Leaders will be involved in auditing the Treasury Box. After a certain time, the Treasury Box will be unlocked. Panda Warriors Community will vote on how the gains will be used.</p>
               <div className="panel-benefit-background-tree w-1/4 h-full"></div>
             </div>
 
@@ -529,10 +540,10 @@ const Home = () => {
             </div>
             <div className={activeFaqIndex == 2 ? 'faq active-faq' : 'faq'}>
                 <div className='faq-header' onClick={() => handleFaq(2)}>
-                    <div>What are the Benefits of Inviting my Friends?</div>
+                    <div>What “Associates Program” is about and how I can benefit?</div>
                     <div className='faq-icon'>{activeFaqIndex == 2 ? <img src={'/images/icon_faq_active.png'} width='20' /> : <img src={'/images/icon_faq.png'} width='12' />}</div>
                 </div>
-                <div className={activeFaqIndex == 2 ? 'active-faq-content' : 'faq-content'}>Build your Panda Warrior Team! Spread the word about Panda Warriors, invite your friends to join our family and  GET 10% REWARDS FROM  EACH MINT of all invited by you Panda Warriors. Get your invite link in our Discord.</div>
+                <div className={activeFaqIndex == 2 ? 'active-faq-content' : 'faq-content'}>The Associate Program was created as a way to stimulate consistent community growth and reward active Warriors (Leaders) who believes in our future and contributes to the community the most. We want every single member, who spread the word about Panda Warriors organically, to be rewarded. Share the information about PW with your friends and get 10% from each NFT mint with your unique code instantly to your wallet on a day of a private/public minting. It doesn’t stop there, once 100% PW Warriors are minted, top community leaders (who got the most amount of mints) will be Rewarded. If you joined our community later, you can still participate in PW Associates Program and build your way to become a Community Leader. This will always be beneficial. You can learn more about it in our discord by visiting the [Affiliate Channel].</div>
             </div>
             <div className={activeFaqIndex == 3 ? 'faq active-faq' : 'faq'}>
                 <div className='faq-header' onClick={() => handleFaq(3)}>
