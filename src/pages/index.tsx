@@ -363,7 +363,7 @@ const Home = () => {
                 <p className="panel-why-desc-text">The Power of the Word of Mouth is our strength. We believe in the power of organic community growth, where members spread the word as they truly support the project, being PW holders themselves. Therefore, those Warriors who contribute to the community growth will always be rewarded. Starting from now, the Associate’s Program has been implemented. Becoming an Associate, you will get 10% of each NFT mint with your Unique Code. (Read details in FAQs)</p>
               </div>
               <div className="w-1/4 flex justify-center items-center">
-                {/* <img src={'/images/overview6.png'} /> */}
+                <img src={'/images/overview6.png'} />
               </div>
             </div>
           </div>
