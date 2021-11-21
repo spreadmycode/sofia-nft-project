@@ -2,7 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useEffect, useState } from 'react';
 import { PRESALE_MAX_NFT_HOLD_COUNT, NORMALSALE_MAX_NFT_HOLD_COUNT, MINT_STATUS } from '../utils/constant';
 import useWalletNfts from './use-wallet-nfts';
-import { WHITELIST_FOR_FREE, WHITELIST_FOR_PRES } from '../utils/whitelist';
+import { WHITELIST_FOR_PRES } from '../utils/whitelist';
 
 const affiliationPeriod = (Number(process.env.NEXT_PUBLIC_AFFILIATION_PERIOD) == 1);
 const presalePeriod = (Number(process.env.NEXT_PUBLIC_PRESALE_PERIOD) == 1);
@@ -33,14 +33,6 @@ const usePresale = () => {
         } else {
             if (presalePeriod) {                                               // Pre-sale period
                 setMaxNFTHoldCount(PRESALE_MAX_NFT_HOLD_COUNT);
-
-                for (let i = 0; i < WHITELIST_FOR_FREE.length; i++) {
-                    let address = WHITELIST_FOR_FREE[i];
-                    if (wallet.publicKey.toBase58() == address) {
-                        setMintStatus(MINT_STATUS.POSSIBLE);
-                        break;
-                    }
-                }
         
                 for (let i = 0; i < WHITELIST_FOR_PRES.length; i++) {
                     let address = WHITELIST_FOR_PRES[i];
