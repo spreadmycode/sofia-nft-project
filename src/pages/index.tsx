@@ -278,6 +278,7 @@ const Home = () => {
 
       <section>
         <div className="w-full">
+          <h5 className="text-white presale-title drop-shadow-lg text-center">PANDA WARRIORS PRE-SALE 1SOL</h5>
           <div className="panel-mint">
             <div className="panel-mint-background">
               <img src={'/images/panel_mint.png'} />
