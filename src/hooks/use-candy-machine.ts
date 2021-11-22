@@ -5,7 +5,6 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import toast from 'react-hot-toast';
 import useWalletBalance from "./use-wallet-balance";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { sleep } from "../utils/utility";
 import { AFFILIATION_WEIGHT } from "../utils/constant";
 
 const MINT_PRICE_SOL = Number(process.env.NEXT_PUBLIC_MINT_PRICE_SOL!);
@@ -31,7 +30,6 @@ export default function useCandyMachine() {
   const [, setBalance] = useWalletBalance();
   const [candyMachine, setCandyMachine] = useState<CandyMachine>();
   const wallet = useWallet();
-  const [affiliatorPubkey, setAffiliatorPubkey] = useState('');
   const [nftsData, setNftsData] = useState<any>({} = {
     itemsRemaining: 0,
     itemsRedeemed: 0,
@@ -91,7 +89,7 @@ export default function useCandyMachine() {
     })();
   }, [wallet, candyMachineId, connection, isMinting]);
 
-  const onMint = async () => {
+  const onMint = async (affiliatorPubkey: string) => {
     try {
       setIsMinting(true);
       const anchorWallet = {
@@ -159,7 +157,7 @@ export default function useCandyMachine() {
     }
   };
 
-  const onMintMultiple = async (quantity: number) => {
+  const onMintMultiple = async (quantity: number, affiliatorPubkey: string) => {
     try {
       setIsMinting(true);
       const anchorWallet = {
@@ -248,16 +246,13 @@ export default function useCandyMachine() {
     }
   };
 
-  const onMintNFT = async (quantity: number, affilatorPubkey: string) => {
-    setAffiliatorPubkey(affilatorPubkey);
-    
+  const onMintNFT = async (quantity: number, affilatorPubkey: string) => {    
     if (quantity == 1) {
-      await onMint();
+      await onMint(affilatorPubkey);
     } else if (quantity > 1) {
-      await onMintMultiple(quantity);
+      await onMintMultiple(quantity, affilatorPubkey);
     }
   }
-
 
   return { isSoldOut, mintStartDate, isMinting, nftsData, onMintNFT };
 }
