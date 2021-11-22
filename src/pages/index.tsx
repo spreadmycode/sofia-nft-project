@@ -157,7 +157,6 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       if (tag == '') return;
-
       switch (tag) {
         case 'WHYUS':
           scrollToRef(whyusRef);
@@ -287,7 +286,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          {/* {
+          {
             isActive ?
               <p className="presale-desc text-white text-center">PW Minted / Total : {nftsData.itemsRedeemed} / {nftsData.itemsAvailable}</p>
             :
@@ -297,7 +296,7 @@ const Home = () => {
                 onComplete={() => setIsActive(true)}
                 renderer={renderCounter}
               />
-          } */}
+          }
         </div>
       </section>
 
