@@ -20,9 +20,9 @@ const Home = () => {
   const wallet = useWallet();
   const [balance] = useWalletBalance();
   const [isActive, setIsActive] = useState(false);
-  const [quantity, setQuantity] = useState(10);
+  const [quantity, setQuantity] = useState(1);
   const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
-  const [isStatusLoading, mintStatus, currentHoldedCount, maxNFTHoldCount] = usePresale();
+  const { isStatusLoading, mintStatus, currentHoldedCount, maxNFTHoldCount } = usePresale();
 
   const {width, height} = useWindowSize();
   const [tag, setTag] = useLocalStorage('TAG', '');
@@ -61,10 +61,10 @@ const Home = () => {
         toast.error("Mint failed! You are not in White List.");
         break;
       case MINT_STATUS.OVERFLOW_MAX_HOLD:
-        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`);
+        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`, { duration: 6000});
         break;
       case MINT_STATUS.WAIT_OPENING:
-        toast.success("Minting date will be announced soon, stay tuned!");
+        toast.success("Minting date will be announced soon, stay tuned!", { duration: 6000});
         break;
     }
   }
@@ -85,7 +85,7 @@ const Home = () => {
       if (existCode == '') {
         setVisibleAffiliationModal(true);
       } else {
-        toast.success(`You have already generated code: ${existCode}`);
+        toast.success(`You have already generated code: ${existCode}`, { duration: 6000});
       }
     } else {
       toast.error("Please connect wallet first.");
@@ -94,7 +94,7 @@ const Home = () => {
 
   const handleAffiliationCode = async () => {
     if (code.length != AFFILIATION_CODE_LEN) {
-      toast.error("Code should be 6 letters(digits and chars).");
+      toast.error(`Code should be ${AFFILIATION_CODE_LEN} letters(digits and chars).`, { duration: 4000});
       return;
     }
 
@@ -104,28 +104,28 @@ const Home = () => {
       
       await insertCode(wallet, code);
 
-      toast.success(`You successfully generated code: ${code}`);
+      toast.success(`You successfully generated code: ${code}`, { duration: 4000});
 
       setVisibleAffiliationModal(false);
     } else {
-      toast.error("This code is aready existed.");
+      toast.error("This code is aready existed.", { duration: 4000});
     }
   }
 
   const handleCheckAffiliation = async () => {
     if (code.length != AFFILIATION_CODE_LEN) {
-      toast.error("Code should be 6 letters(digits and chars).");
+      toast.error(`Code should be ${AFFILIATION_CODE_LEN} letters(digits and chars).`, { duration: 4000});
       return;
     }
 
     const existPubkey = await getPubKeyByCode(code);
 
     if (existPubkey == '') {
-      toast.error("This code is not existed.");
+      toast.error("This code is not existed.", { duration: 4000});
     } else {
 
       if (existPubkey == wallet.publicKey?.toBase58()) {
-        toast.error("You can't use your own code for mint.");
+        toast.error("You can't use your own code for mint.", { duration: 4000});
         return;
       }
 
@@ -133,7 +133,7 @@ const Home = () => {
 
       let possibleQuantity = maxNFTHoldCount - currentHoldedCount;
       if (possibleQuantity <= 0) {
-        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`);
+        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`, { duration: 4000});
         return;
       }
 
@@ -287,13 +287,15 @@ const Home = () => {
             </div>
           </div>
           {
-            !isActive &&
-            <Countdown
-              date={mintStartDate}
-              onMount={({ completed }) => completed && setIsActive(true)}
-              onComplete={() => setIsActive(true)}
-              renderer={renderCounter}
-            />
+            isActive ?
+              <p className="presale-desc text-white text-center">PW Minted / Total : {nftsData.itemsRedeemed} / {nftsData.itemsAvailable}</p>
+            :
+              <Countdown
+                date={mintStartDate}
+                onMount={({ completed }) => completed && setIsActive(true)}
+                onComplete={() => setIsActive(true)}
+                renderer={renderCounter}
+              />
           }
         </div>
       </section>
@@ -660,7 +662,7 @@ const Home = () => {
                         <p className="text-sm text-gray-500">
                           Create your Unique Code (UC) and share it with your friends. Get 10% reward of each NFT minted with your UC! You can’t use your own code for minting, someone has to invite you as well. If nobody invited you, contact us on Discord and get UC to mint your NFT.
                         </p>
-                        <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)" />
+                        <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder={`${AFFILIATION_CODE_LEN} Letters(digits and chars)`} />
                       </div>
                     </div>
                   </div>
@@ -728,7 +730,15 @@ const Home = () => {
                           Please type code which was received from affiliator.
                           If you have no, please type 000001.
                         </p>
-                        <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder="6 Letters(digits and chars)" />
+                        <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder={`${AFFILIATION_CODE_LEN} Letters(digits and chars)`} />
+                      </div>
+                      <div className="mt-5 w-full flex justify-center items-center">
+                        <div>
+                          <p className="text-sm text-gray-500">
+                            Select mint amount (1~10).
+                          </p>
+                          <input min={1} max={10} value={quantity} onChange={(e) => {setQuantity(Number(e.target.value))}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 mx-auto text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="number" placeholder="Mint Amount" />
+                        </div>
                       </div>
                     </div>
                   </div>

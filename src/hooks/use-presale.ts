@@ -10,10 +10,11 @@ const treasuryPubkey = process.env.NEXT_PUBLIC_TREASURY_ADDRESS;
 
 const usePresale = () => {
   const wallet = useWallet();
-  const [isStatusLoading, nfts]: any = useWalletNfts();
+  const isStatusLoading = false;
+//   const [isStatusLoading, nfts]: any = useWalletNfts();
   const [mintStatus, setMintStatus] = useState(MINT_STATUS.WAIT_OPENING);
-  const [currentHoldedCount, setCurrentHoldedCount] = useState(0);
-  const [maxNFTHoldCount, setMaxNFTHoldCount] = useState(PRESALE_MAX_NFT_HOLD_COUNT);
+  const [currentHoldedCount, setCurrentHoldedCount] = useState<number>(0);
+  const [maxNFTHoldCount, setMaxNFTHoldCount] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
@@ -50,11 +51,11 @@ const usePresale = () => {
                 setMintStatus(MINT_STATUS.POSSIBLE);
             }
 
-            let holdedNFTCount = nfts.length;
-            setCurrentHoldedCount(holdedNFTCount);
-            if (holdedNFTCount >= maxNFTHoldCount) {                            // Check max hold count
-                setMintStatus(MINT_STATUS.OVERFLOW_MAX_HOLD);
-            }
+            // let holdedNFTCount = nfts.length;
+            // setCurrentHoldedCount(holdedNFTCount);
+            // if (holdedNFTCount >= maxNFTHoldCount) {                            // Check max hold count
+            //     setMintStatus(MINT_STATUS.OVERFLOW_MAX_HOLD);
+            // }
 
             if (wallet.publicKey.toBase58() == treasuryPubkey) {                // Owner of store can mint at anytime
                 setMintStatus(MINT_STATUS.POSSIBLE);
@@ -63,7 +64,7 @@ const usePresale = () => {
     })();
   }, [wallet, isStatusLoading]);
 
-  return [isStatusLoading, mintStatus, currentHoldedCount, maxNFTHoldCount];
+  return {isStatusLoading, mintStatus, currentHoldedCount, maxNFTHoldCount};
 }
 
 export default usePresale;

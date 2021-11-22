@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import useWalletBalance from "./use-wallet-balance";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { sleep } from "../utils/utility";
+import { AFFILIATION_WEIGHT } from "../utils/constant";
 
 const MINT_PRICE_SOL = Number(process.env.NEXT_PUBLIC_MINT_PRICE_SOL!);
 
@@ -107,7 +108,7 @@ export default function useCandyMachine() {
 
       if (wallet.connected && candyMachine?.program && wallet.publicKey) {
         const affiliator = new anchor.web3.PublicKey(affiliatorPubkey);
-        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / 9.0;
+        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / AFFILIATION_WEIGHT;
         const mintTxId = await mintOneToken(
           candyMachine,
           config,
@@ -173,11 +174,8 @@ export default function useCandyMachine() {
           connection
         );
       if (wallet.connected && candyMachine?.program && wallet.publicKey) {
-        const oldBalance = await connection.getBalance(wallet?.publicKey) / LAMPORTS_PER_SOL;
-        const futureBalance = oldBalance - ((MINT_PRICE_SOL + (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / 9.0) * quantity)
-
         const affiliator = new anchor.web3.PublicKey(affiliatorPubkey);
-        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / 9.0;
+        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / AFFILIATION_WEIGHT;
         const signedTransactions: any = await mintMultipleToken(
           candyMachine,
           config,
@@ -215,19 +213,12 @@ export default function useCandyMachine() {
           }
         }
 
-        let newBalance = await connection.getBalance(wallet?.publicKey) / LAMPORTS_PER_SOL;
-
-        while(newBalance > futureBalance) {
-          await sleep(1000);
-          newBalance = await connection.getBalance(wallet?.publicKey) / LAMPORTS_PER_SOL;
-        }
-
         if(totalSuccess) {
-          toast.success(`Congratulations! ${totalSuccess} mints succeeded! Your NFT's should appear in your wallet soon :)`, { duration: 6000, position: "bottom-center" })
+          toast.success(`Congratulations! You've got ${totalSuccess} PWs`, { duration: 6000})
         }
 
         if(totalFailure) {
-          toast.error(`Some mints failed! ${totalFailure} mints failed! Check on your wallet :(`, { duration: 6000, position: "bottom-center" })
+          toast.error(`Some mints failed! ${totalFailure} mints failed.`, { duration: 6000})
         }
       }
     } catch (error: any) {
