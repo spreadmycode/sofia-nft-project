@@ -722,12 +722,11 @@ const Home = () => {
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        Check Affiliation Code
+                        Enter the Invitation Code
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Please type code which was received from affiliator.
-                          If you have no, please type 000001.
+                          Please enter the Invitation code, that you received from a person, who invited you to Panda Warriors NFT Community. If you do not have an Invite Code, enter 000001 to proceed.
                         </p>
                         <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder={`${AFFILIATION_CODE_LEN} Letters(digits and chars)`} />
                       </div>
