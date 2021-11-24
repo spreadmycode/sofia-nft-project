@@ -112,7 +112,7 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
           </button>
         </Link>
 
-        <div className="grid grid-cols-7 gap-6 pt-5">
+        <div className="grid grid-cols-8 gap-6 pt-5">
           <div className="col-span-1"></div>
           <div className="col-span-1"></div>
           <a href="https://mobile.twitter.com/PandaWarriorNFT" className="inline-flex text-center justify-center items-center">
@@ -123,6 +123,9 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
           </a>
           <a href="https://www.instagram.com/pandawarriors_nft/" className="inline-flex text-center justify-center items-center">
             <img src={'/images/icon_instagram.png'} />
+          </a>
+          <a href="https://vm.tiktok.com/ZSeBEyjcy/" className="inline-flex text-center justify-center items-center">
+            <img src={'/images/icon_tiktok.png'} />
           </a>
           <div className="col-span-1"></div>
           <div className="col-span-1"></div>

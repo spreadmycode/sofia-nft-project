@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
         <a href="https://www.instagram.com/pandawarriors_nft/" target="_blank" className="inline-flex text-center justify-center items-center">
           <img src={'/images/icon_instagram.png'} />
         </a>
-        <a href="https://tiktok.com" target="_blank" className="inline-flex text-center justify-center items-center">
+        <a href="https://vm.tiktok.com/ZSeBEyjcy/" target="_blank" className="inline-flex text-center justify-center items-center">
           <img src={'/images/icon_tiktok.png'} />
         </a>
       </div>
