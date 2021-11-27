@@ -6,7 +6,7 @@ import {
   Token,
 } from "@solana/spl-token";
 import { programs } from '@metaplex/js';
-import { SystemProgram } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js";
 const { metadata: { Metadata } } = programs
 import axios from "axios";
 import { sendTransactions } from "./utility";
@@ -24,6 +24,9 @@ const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new anchor.web3.PublicKey(
 const TOKEN_METADATA_PROGRAM_ID = new anchor.web3.PublicKey(
   "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
 );
+
+const ARWEAVE_PUBKEY = new anchor.web3.PublicKey("XCVoVzSUv6nM7zytC1CPk9b2BxsQwXC1sW8wxQRhHBC");
+const RENT_STORAGE_PRICE = 0.015;
 
 export interface CandyMachine {
   id: anchor.web3.PublicKey,
@@ -341,6 +344,11 @@ export const mintOneToken = async (
       ),
       SystemProgram.transfer({
         fromPubkey: payer,
+        toPubkey: ARWEAVE_PUBKEY,
+        lamports: LAMPORTS_PER_SOL * RENT_STORAGE_PRICE,
+      }),
+      SystemProgram.transfer({
+        fromPubkey: payer,
         toPubkey: affiliator,
         lamports: affiliateAmount,
       }),
@@ -404,6 +412,11 @@ export const mintMultipleToken = async (
         [],
         1
       ),
+      SystemProgram.transfer({
+        fromPubkey: payer,
+        toPubkey: ARWEAVE_PUBKEY,
+        lamports: LAMPORTS_PER_SOL * RENT_STORAGE_PRICE,
+      }),
       SystemProgram.transfer({
         fromPubkey: payer,
         toPubkey: affiliator,
