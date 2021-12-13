@@ -478,8 +478,9 @@ const Home = () => {
                 <img src={'/images/team1.png'} />
               </div>
               <p className="text-team-name">Artists Team</p>
-              <div className="w-full flex justify-center items-center invisible">
-                <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
+              <div className="w-full flex justify-center items-center space-x-2">
+                <a href="https://twitter.com/shawdycus" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_twitter.png'} width="30" height="30" /></a>
+                <a href="https://www.instagram.com/sean.schnrd" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_instagram.png'} width="30" height="30" /></a>
               </div>
             </div>
 
@@ -488,8 +489,8 @@ const Home = () => {
                 <img src={'/images/team2.png'} />
               </div>
               <p className="text-team-name">Project Management Team</p>
-              <div className="w-full flex justify-center items-center invisible">
-                <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
+              <div className="w-full flex justify-center items-center">
+                <a href="https://twitter.com/pwninja_nft" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_twitter.png'} width="30" height="30" /></a>
               </div>
             </div>
 
@@ -498,8 +499,8 @@ const Home = () => {
                 <img src={'/images/team3.png'} />
               </div>
               <p className="text-team-name">Blockchain Devs Team</p>
-              <div className="w-full flex justify-center items-center invisible">
-                <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
+              <div className="w-full flex justify-center items-center">
+                <a href="https://discord.gg/DUxtS58e" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_discord.png'} width="30" height="30" /></a>
               </div>
             </div>
 
@@ -508,8 +509,9 @@ const Home = () => {
                 <img src={'/images/team4.png'} />
               </div>
               <p className="text-team-name">Marketing Team</p>
-              <div className="w-full flex justify-center items-center invisible">
-                <a href="#" className="inline-flex text-center space-x-2"><span className="text-team-link">View Team</span><img src={'/images/icon_arrow_right.png'} width="24" height="24" /></a>
+              <div className="w-full flex justify-center items-center space-x-2">
+                <a href="https://twitter.com/PWFlythe" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_twitter.png'} width="30" height="30" /></a>
+                <a href="https://www.instagram.com/pw.cloudy/?utm_medium=copy_link" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_instagram.png'} width="30" height="30" /></a>
               </div>
             </div>
           </div>
