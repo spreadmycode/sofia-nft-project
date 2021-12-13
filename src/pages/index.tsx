@@ -481,6 +481,7 @@ const Home = () => {
               <div className="w-full flex justify-center items-center space-x-2">
                 <a href="https://twitter.com/shawdycus" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_twitter.png'} width="30" height="30" /></a>
                 <a href="https://www.instagram.com/sean.schnrd" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_instagram.png'} width="30" height="30" /></a>
+                <a href="https://instagram.com/yokune.7?utm_medium=copy_link" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_instagram.png'} width="30" height="30" /></a>
               </div>
             </div>
 
