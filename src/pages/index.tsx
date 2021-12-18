@@ -7,14 +7,21 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import useWalletBalance from '../hooks/use-wallet-balance';
 import Countdown from 'react-countdown';
-import usePresale from '../hooks/use-presale';
 import toast from 'react-hot-toast';
 import { useWindowSize } from '../hooks/use-window-size';
 import { useHorizontalScroll } from '../hooks/use-horizontal-scroll';
 import { useLocalStorage } from '@solana/wallet-adapter-react';
 import { Dialog, Transition } from '@headlessui/react';
 import useAffiliation from '../hooks/use-affiliation';
-import { AFFILIATION_CODE_LEN, MINT_STATUS } from '../utils/constant';
+import { AFFILIATION_CODE_LEN, NORMALSALE_MAX_NFT_HOLD_COUNT, PRESALE_MAX_NFT_HOLD_COUNT, PRESALE_SOLD_LIMIT_COUNT } from '../utils/constant';
+import { getNftHoldCount } from '../utils/candy-machine';
+import * as anchor from "@project-serum/anchor";
+
+const affiliationPeriod = (Number(process.env.NEXT_PUBLIC_AFFILIATION_PERIOD) == 1);
+const presalePeriod = (Number(process.env.NEXT_PUBLIC_PRESALE_PERIOD) == 1);
+const treasuryPubkey = process.env.NEXT_PUBLIC_TREASURY_ADDRESS;
+const rpcHost = process.env.NEXT_PUBLIC_SOLANA_RPC_HOST!;
+const connection = new anchor.web3.Connection(rpcHost);
 
 const Home = () => {
   const wallet = useWallet();
@@ -22,11 +29,12 @@ const Home = () => {
   const [isActive, setIsActive] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { isSoldOut, mintStartDate, isMinting, onMintNFT, nftsData } = useCandyMachine();
-  const { isStatusLoading, mintStatus, currentHoldedCount, maxNFTHoldCount } = usePresale();
 
   const {width, height} = useWindowSize();
   const [tag, setTag] = useLocalStorage('TAG', '');
   const { isAffiliationLoading, getCodeByWallet, getPubKeyByCode, insertCode } = useAffiliation();
+  const [isGetNftHoldCount, setIsGetNftHoldCount] = useState(false);
+  const [maxNftHoldCount, setMaxNftHoldCount] = useState(PRESALE_MAX_NFT_HOLD_COUNT);
   
   const [code, setCode] = useState('');
   const [visibleAffiliationModal, setVisibleAffiliationModal] = useState(false);
@@ -40,9 +48,10 @@ const Home = () => {
   const attributesRef = useRef(null);
   const teamRef = useRef(null);
   const faqRef = useRef(null);
+  const mintRef = useRef(null);
 
   // Handlers
-  const handleMintAction = () => {
+  const handleMintButtonClicked = () => {
     if (!wallet.connected) {
       toast.error("Please connect wallet first.");
       return;
@@ -53,20 +62,24 @@ const Home = () => {
       return;
     }
 
-    switch (mintStatus) {
-      case MINT_STATUS.POSSIBLE:
-        setVisibleCheckModal(true);
-        break;
-      case MINT_STATUS.NOT_WHITELISTED:
-        toast.error("Mint failed! You are not in White List.");
-        break;
-      case MINT_STATUS.OVERFLOW_MAX_HOLD:
-        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`, { duration: 6000});
-        break;
-      case MINT_STATUS.WAIT_OPENING:
-        toast.success("Minting date will be announced soon, stay tuned!", { duration: 6000});
-        break;
+    if (affiliationPeriod) {
+      toast.success("Minting date will be announced soon, stay tuned!", { duration: 6000});
+      return;
     }
+
+    if (presalePeriod) {
+      if (nftsData.itemsRedeemed >= PRESALE_SOLD_LIMIT_COUNT) {
+        toast.success("Pre Sale is ended up. Please wait for public sale.", { duration: 6000});
+        return;
+      }
+      
+      setMaxNftHoldCount(PRESALE_MAX_NFT_HOLD_COUNT);
+
+    } else {
+      setMaxNftHoldCount(NORMALSALE_MAX_NFT_HOLD_COUNT);
+    }
+
+    setVisibleCheckModal(true);
   }
 
   const handleFaq = (index: number) => {
@@ -77,7 +90,7 @@ const Home = () => {
     }
   }
 
-  const handleAffiliation = async () => {
+  const handleGetReferralCode = async () => {
     if (wallet.connected) {
       
       const existCode = await getCodeByWallet(wallet);
@@ -92,7 +105,7 @@ const Home = () => {
     }
   }
 
-  const handleAffiliationCode = async () => {
+  const handleGenerateCode = async () => {
     if (code.length != AFFILIATION_CODE_LEN) {
       toast.error(`Code should be ${AFFILIATION_CODE_LEN} letters(digits and chars).`, { duration: 4000});
       return;
@@ -104,7 +117,7 @@ const Home = () => {
       
       await insertCode(wallet, code);
 
-      toast.success(`You successfully generated code: ${code}`, { duration: 4000});
+      toast.success(`You successfully generated code: ${code}`, { duration: 6000});
 
       setVisibleAffiliationModal(false);
     } else {
@@ -112,7 +125,7 @@ const Home = () => {
     }
   }
 
-  const handleCheckAffiliation = async () => {
+  const handleCheckCode = async () => {
     if (code.length != AFFILIATION_CODE_LEN) {
       toast.error(`Code should be ${AFFILIATION_CODE_LEN} letters(digits and chars).`, { duration: 4000});
       return;
@@ -130,18 +143,31 @@ const Home = () => {
       }
 
       setVisibleCheckModal(false);
+      let nftHoldCount = 0;
+      if (wallet.publicKey) {
+        setIsGetNftHoldCount(true);
 
-      let possibleQuantity = maxNFTHoldCount - currentHoldedCount;
-      if (possibleQuantity <= 0) {
-        toast.error(`You can't mint more than ${maxNFTHoldCount} Panda Warriors.`, { duration: 4000});
+        // Get currently hold PW count
+        nftHoldCount = await getNftHoldCount(connection, wallet.publicKey);
+
+        setIsGetNftHoldCount(false);
+      } else {
+        toast.error("Mint failed. Please try again.");
         return;
       }
 
-      let realQuantity: number = quantity;
-      if (quantity > possibleQuantity) {
-        realQuantity = possibleQuantity;
+      let possibleQuantity = maxNftHoldCount - nftHoldCount;
+      if (possibleQuantity <= 0) {
+        toast.error(`You can't mint more than ${maxNftHoldCount} Panda Warriors.`, { duration: 6000});
+        return;
       }
-      await onMintNFT(realQuantity, existPubkey);
+
+      if (quantity > possibleQuantity) {
+        toast.error(`You can't mint more than ${possibleQuantity} Panda Warriors right now.`, { duration: 6000});
+        return;
+      }
+
+      await onMintNFT(quantity, existPubkey);
     }
   }
 
@@ -176,6 +202,9 @@ const Home = () => {
         case 'FAQ':
           scrollToRef(faqRef);
           break;
+        case 'MINT':
+          scrollToRef(mintRef);
+          break;
       }
 
       setTag('');
@@ -188,11 +217,11 @@ const Home = () => {
 
       <Head>
         <title>Panda Warriors</title>
-        <meta name="description" content="You can purchase PANDA WARRIOR." />
+        <meta name="description" content="Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun." />
         <link rel="icon" href="/icon.png" />
       </Head>
 
-      <Header whyusRef={whyusRef} roadmapRef={roadmapRef} benefitsRef={benefitsRef} attributesRef={attributesRef} teamRef={teamRef} faqRef={faqRef} />
+      <Header whyusRef={whyusRef} roadmapRef={roadmapRef} benefitsRef={benefitsRef} attributesRef={attributesRef} teamRef={teamRef} faqRef={faqRef} mintRef={mintRef} />
 
       {(width > 768) ?
       <section>
@@ -243,7 +272,7 @@ const Home = () => {
                   <span>Join Discord</span>
                 </button>
               </a>
-              <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3 z-order-top" onClick={handleAffiliation}>
+              <button className="border-gray-500 hover:border-white text-white border font-bold m-2 rounded py-2 col-span-1 md:col-start-3 z-order-top" onClick={handleGetReferralCode}>
                 GET REFERRAL CODE
               </button>
             </div>
@@ -274,14 +303,14 @@ const Home = () => {
         </div>
       </section>
 
-      <section>
+      <section ref={mintRef}>
         <div className="w-full">
           <h5 className="text-white presale-title drop-shadow-lg text-center">PRE-SALE <span className="text-yellow-500">1SOL</span></h5>
           <div className="panel-mint">
             <div className="panel-mint-background">
               <img src={'/images/panel_mint.png'} />
               <div className="panel-mint-button">
-                <button className="panel-mint-button-ref" onClick={handleMintAction}><div></div></button>
+                <button className="panel-mint-button-ref" onClick={handleMintButtonClicked}><div></div></button>
               </div>
             </div>
           </div>
@@ -673,7 +702,7 @@ const Home = () => {
                   <button
                     type="button"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={handleAffiliationCode}
+                    onClick={handleGenerateCode}
                   >
                     Generate
                   </button>
@@ -748,7 +777,7 @@ const Home = () => {
                   <button
                     type="button"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={handleCheckAffiliation}
+                    onClick={handleCheckCode}
                   >
                     Mint
                   </button>
@@ -767,7 +796,7 @@ const Home = () => {
         </Dialog>
       </Transition.Root>
 
-      {(wallet.connected && (isAffiliationLoading || isStatusLoading || isMinting)) &&
+      {(wallet.connected && (isAffiliationLoading || isGetNftHoldCount || isMinting)) &&
         <div className="w-full h-full fixed block top-0 left-0 bg-black opacity-75 z-50 flex justify-center items-center">
           <div
             className="
