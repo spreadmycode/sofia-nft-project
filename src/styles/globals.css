@@ -84,7 +84,7 @@ section {
 /************************************** Header **************************/
 
 .button-connect {
-  background-color: #F1C40F !important;
+  background-color: #fdd535 !important;
   color: black !important;
   border-radius: 5px !important;
   font-size: 16px !important;
@@ -102,7 +102,29 @@ section {
 }
 
 .button-connect:hover {
-  background-color: #fdd535 !important;
+  background-color: #F1C40F !important;
+}
+
+.button-mint {
+  background-color: #13aa38 !important;
+  color: black !important;
+  border-radius: 5px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  width: 100px !important;
+  height: 50px !important;
+  justify-content: center !important;
+}
+
+@media(max-width: 768px) {
+  .button-mint {
+    font-size: 14px !important;
+    height: 35px !important;
+  }
+}
+
+.button-mint:hover {
+  background-color: #21c94b !important;
 }
 
 .header-menu-item {

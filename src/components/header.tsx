@@ -67,7 +67,7 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
                 MARKETPLACE
               </button>
             </Link> */}
-            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(mintRef, 'MINT')} >
+            <button className="button-mint" onClick={() => scrollTo(mintRef, 'MINT')} >
               MINT
             </button>
           </div>
@@ -109,11 +109,16 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
             LAUNCHPAD
           </button>
         </Link>
-        <Link href="/marketplace">
+        {/* <Link href="/marketplace">
           <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" >
             MARKETPLACE
           </button>
-        </Link>
+        </Link> */}
+        <div className="w-full flex justify-center items-center">
+          <button className="button-mint" onClick={() => scrollTo(mintRef, 'MINT')} >
+            MINT
+          </button>
+        </div>
 
         <div className="grid grid-cols-8 gap-6 pt-5">
           <div className="col-span-1"></div>
