@@ -143,6 +143,7 @@ const Home = () => {
       }
 
       setVisibleCheckModal(false);
+      
       let nftHoldCount = 0;
       if (wallet.publicKey) {
         setIsGetNftHoldCount(true);
