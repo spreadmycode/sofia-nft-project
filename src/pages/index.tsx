@@ -170,6 +170,11 @@ const Home = () => {
         return;
       }
 
+      if (presalePeriod && ((nftsData.itemsRedeemed + quantity) >= PRESALE_SOLD_LIMIT_COUNT)) {
+        toast.error(`You can't mint more than ${PRESALE_SOLD_LIMIT_COUNT - nftsData.itemsRedeemed} Panda Warriors because of reaching out limit for pre-sale.`, { duration: 6000});
+        return;
+      }
+
       await onMintNFT(quantity, existPubkey);
     }
   }
