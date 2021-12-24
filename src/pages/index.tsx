@@ -13,7 +13,7 @@ import { useHorizontalScroll } from '../hooks/use-horizontal-scroll';
 import { useLocalStorage } from '@solana/wallet-adapter-react';
 import { Dialog, Transition } from '@headlessui/react';
 import useAffiliation from '../hooks/use-affiliation';
-import { AFFILIATION_CODE_LEN, NORMALSALE_MAX_NFT_HOLD_COUNT, PRESALE_MAX_NFT_HOLD_COUNT, PRESALE_SOLD_LIMIT_COUNT } from '../utils/constant';
+import { AFFILIATION_CODE_LEN, NORMALSALE_MAX_NFT_HOLD_COUNT, OWNER_AFFLIATION_CODE, PRESALE_MAX_NFT_HOLD_COUNT, PRESALE_SOLD_LIMIT_COUNT } from '../utils/constant';
 import { getNftHoldCount } from '../utils/candy-machine';
 import * as anchor from "@project-serum/anchor";
 
@@ -79,6 +79,7 @@ const Home = () => {
       setMaxNftHoldCount(NORMALSALE_MAX_NFT_HOLD_COUNT);
     }
 
+    setCode("");
     setVisibleCheckModal(true);
   }
 
@@ -96,6 +97,7 @@ const Home = () => {
       const existCode = await getCodeByWallet(wallet);
 
       if (existCode == '') {
+        setCode("");
         setVisibleAffiliationModal(true);
       } else {
         toast.success(`You have already generated code: ${existCode}`, { duration: 6000});
@@ -759,16 +761,16 @@ const Home = () => {
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Please enter the Invitation code, that you received from a person, who invited you to Panda Warriors NFT Community. If you do not have an Invite Code, enter 000001 to proceed.
+                          Please enter the Invitation code, that you received from a person, who invited you to Panda Warriors NFT Community. If you do not have an Invite Code, press here<button type="button" className="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => {setCode(OWNER_AFFLIATION_CODE)}}>Get Code</button>
                         </p>
                         <input maxLength={6} minLength={6} value={code} onChange={(e) => {setCode(e.target.value)}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="text" placeholder={`${AFFILIATION_CODE_LEN} Letters(digits and chars)`} />
                       </div>
                       <div className="mt-5 w-full flex justify-center items-center">
                         <div>
                           <p className="text-sm text-gray-500">
-                            Select mint amount (1~10).
+                            Select mint amount (1~{maxNftHoldCount}).
                           </p>
-                          <input min={1} max={10} value={quantity} onChange={(e) => {setQuantity(Number(e.target.value))}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 mx-auto text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="number" placeholder="Mint Amount" />
+                          <input min={1} max={maxNftHoldCount} value={quantity} onChange={(e) => {setQuantity(Number(e.target.value))}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 mx-auto text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="number" placeholder="Mint Amount" />
                         </div>
                       </div>
                     </div>
