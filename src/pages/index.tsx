@@ -62,6 +62,11 @@ const Home = () => {
       return;
     }
 
+    if (!isActive) {
+      toast.success("Sorry. Please wait for a Pre-Sale day.");
+      return;
+    }
+
     if (affiliationPeriod) {
       toast.success("Minting date will be announced soon, stay tuned!", { duration: 6000});
       return;
