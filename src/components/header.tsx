@@ -32,13 +32,14 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
   }
 
   return <div className="theme-header theme-bg-color md:px-10 w-full">
-    <div className="w-full flex flex-row justify-center items-center md:space-x-8">
+    <div className="w-full flex flex-row justify-center items-center">
       <div className="pl-3 md:pl-0">
         <Link href="/"><img src={'/images/logo.png'} width={(width > 768) ? '100px' : '70px'} className="cursor-pointer" /></Link>
       </div>
       {width > 1280 ?
         <>
-          <div className="flex flex-row justify-between space-x-8 items-center">
+          <div className="flex-grow flex flex-row justify-between items-center">
+            <div></div>
             <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(whyusRef, 'WHYUS')} >
               WHY US
             </button>
@@ -62,14 +63,15 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
                 LAUNCHPAD
               </button>
             </Link>
-            {/* <Link href="/marketplace">
+            <Link href="/marketplace">
               <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" >
                 MARKETPLACE
               </button>
-            </Link> */}
+            </Link>
             <button className="button-mint" onClick={() => scrollTo(mintRef, 'MINT')} >
               MINT
             </button>
+            <div></div>
           </div>
           <WalletMultiButton className="button-connect" />
         </>

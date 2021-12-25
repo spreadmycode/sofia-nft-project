@@ -476,19 +476,26 @@ const Home = () => {
               <div className="panel-benefit-background-tree w-1/4 h-full"></div>
             </div>
 
-            <div className="md:col-span-2 panel-benefit flex flex-col space-y-2 p-5 panel-why-border-radius">
+            <div className="md:col-span-1 panel-benefit flex flex-col space-y-2 p-5 panel-why-border-radius">
               <div className="flex justify-start items-center">
-                <img src={'/images/benefits5.png'} className="image-benefit" />
+                  <img src={'/images/benefits5.png'} className="image-benefit" />
               </div>
               <h5 className="panel-why-desc-title">PW LAUNCHPAD</h5>
               <p className="panel-why-desc-text">Grant access to new high-potential NFT projects first, receive airdrops and get whitelisted, by holding Panda Warriors.</p>
-              <div className="panel-benefit-background-tree w-1/4 h-full"></div>
+            </div>
+            
+            <div className="md:col-span-1 panel-benefit flex flex-col space-y-2 p-5 panel-why-border-radius">
+              <div className="flex justify-start items-center">
+                  <img src={'/images/benefits6.png'} className="image-benefit" />
+              </div>
+              <h5 className="panel-why-desc-title"></h5>
+              <p className="panel-why-desc-text">Holders will get exclusive access to our smart tools that will help you successfully analyze, mint and profitably trade NFTs across multiple blockchains, as well as save your time & money on research and many more.</p>
             </div>
 
             <div className="md:col-span-1 flex justify-center items-center">
               <div className="flex flex-col space-y-2">
                 <div className="flex justify-center items-center">
-                  <img src={'/images/benefits6.png'} width='70%' />
+                  <img src={'/images/benefits7.png'} width='70%' />
                 </div>
                 <h5 className="panel-why-desc-title text-center">Coming Soon...</h5>
               </div>
