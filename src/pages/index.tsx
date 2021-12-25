@@ -323,9 +323,11 @@ const Home = () => {
               </div>
             </div>
           </div>
-          {/* {
+          {
             isActive ?
-              <p className="presale-desc text-white text-center">PW Minted / Total : {nftsData.itemsRedeemed} / {nftsData.itemsAvailable}</p>
+              <p className="presale-desc text-white text-center">
+                {/* PW Minted / Total : {nftsData.itemsRedeemed} / {nftsData.itemsAvailable} */}
+              </p>
             :
               <Countdown
                 date={mintStartDate}
@@ -333,7 +335,7 @@ const Home = () => {
                 onComplete={() => setIsActive(true)}
                 renderer={renderCounter}
               />
-          } */}
+          }
         </div>
       </section>
 
