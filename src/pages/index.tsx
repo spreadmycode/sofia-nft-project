@@ -294,7 +294,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section>
+      {/* <section>
         <div className="w-full md:h-screen flex flex-col md:flex-row justify-center items-center p-10 space-x-5">
           <div className="z-order-content">
             <h5 className="text-white presale-title drop-shadow-lg">PANDA WARRIORS PRE-SALE</h5>
@@ -315,7 +315,7 @@ const Home = () => {
             <img src={'/images/panda.png'} />
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section ref={mintRef}>
         <div className="w-full">
