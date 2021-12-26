@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import useWalletBalance from "./use-wallet-balance";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { AFFILIATION_WEIGHT } from "../utils/constant";
+import { addTransactionLog } from "../utils/nft-count-api";
 
 const MINT_PRICE_SOL = Number(process.env.NEXT_PUBLIC_MINT_PRICE_SOL!);
 
@@ -125,6 +126,9 @@ export default function useCandyMachine() {
 
         if (!status?.err) {
           toast.success("Congratulations! You have just got PW.");
+
+          // Log mint transaction
+          await addTransactionLog(wallet.publicKey.toBase58(), 1, mintTxId);
         } else {
           toast.error("Mint failed! Please try again!");
         }
@@ -184,10 +188,11 @@ export default function useCandyMachine() {
         );
 
         const promiseArray = [];
-        
+        const txArray = [];
 
         for (let index = 0; index < signedTransactions.length; index++) {
           const tx = signedTransactions[index];
+          txArray.push(tx);
           promiseArray.push(awaitTransactionSignatureConfirmation(
             tx,
             txTimeout,
@@ -200,22 +205,30 @@ export default function useCandyMachine() {
         const allTransactionsResult = await Promise.all(promiseArray);
         let totalSuccess = 0;
         let totalFailure = 0;
+        let txIds = '';
 
         for (let index = 0; index < allTransactionsResult.length; index++) {
           const transactionStatus = allTransactionsResult[index];
           if (!transactionStatus?.err) {
             totalSuccess += 1;
+            txIds += txArray[index] + ',';
           } else {
             totalFailure += 1;
           }
         }
+        if (txIds != '') {
+      	  txIds = txIds.substring(0, txIds.length - 1);  // Remove last comma
+        }
 
         if(totalSuccess) {
-          toast.success(`Congratulations! You've got ${totalSuccess} PWs`, { duration: 6000})
+          toast.success(`Congratulations! You've got ${totalSuccess} PWs`, { duration: 6000});
+
+          // Log mint transaction
+          await addTransactionLog(wallet.publicKey.toBase58(), totalSuccess, txIds);
         }
 
         if(totalFailure) {
-          toast.error(`Some mints failed! ${totalFailure} mints failed.`, { duration: 6000})
+          toast.error(`Some mints failed! ${totalFailure} mints failed.`, { duration: 6000});
         }
       }
     } catch (error: any) {
