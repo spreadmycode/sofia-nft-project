@@ -840,10 +840,10 @@ const renderCounter = ({ days, hours, minutes, seconds }: any) => {
   return (
     <div className="panel-mint-timer">
       <span>
-        {(days > 0) && <span><span className="text-timer-big">{days}</span> <span className="text-timer-small">Days</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>}
-        {(hours > 0) && <span><span className="text-timer-big">{hours}</span> <span className="text-timer-small">Hrs</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>}
-        <span className="text-timer-big">{minutes}</span> <span className="text-timer-small">Min</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <span className="text-timer-big">{seconds}</span> <span className="text-timer-small">Sec</span>
+        {(days > 0) && <span><span className="text-timer-big">{days}</span> <span className="text-timer-small">Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>}
+        {(hours > 0) && <span><span className="text-timer-big">{hours}</span> <span className="text-timer-small">Hrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>}
+        <span><span className="text-timer-big">{minutes}</span> <span className="text-timer-small">Min&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
+        <span><span className="text-timer-big">{seconds}</span> <span className="text-timer-small">Sec</span></span>
       </span>
     </div>
   );
