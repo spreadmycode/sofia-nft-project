@@ -488,7 +488,7 @@ const Home = () => {
               <div className="flex justify-start items-center">
                   <img src={'/images/benefits6.png'} className="image-benefit" />
               </div>
-              <h5 className="panel-why-desc-title"></h5>
+              <h5 className="panel-why-desc-title">SMART TOOL</h5>
               <p className="panel-why-desc-text">Holders will get exclusive access to our smart tools that will help you successfully analyze, mint and profitably trade NFTs across multiple blockchains, as well as save your time & money on research and many more.</p>
             </div>
 
