@@ -1,7 +1,8 @@
 import { 
     insertAffiliation,
     getPubkey,
-    getCode
+    getCode,
+    addTransactionLog
 } from '../libs/affiliation';
 
 export const resolvers = {
@@ -24,5 +25,9 @@ export const resolvers = {
             const code = await getCode(args.input.pubkey);
             return { code };
         },
+        async addTransactionLog(_parent, args, _context, _info) {
+            const data = await addTransactionLog(args.input.pubkey, args.input.holdcnt, args.input.txid);
+            return { data };
+        }
     },
 };

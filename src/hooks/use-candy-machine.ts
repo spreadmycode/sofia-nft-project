@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import useWalletBalance from "./use-wallet-balance";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { AFFILIATION_WEIGHT } from "../utils/constant";
-import { addTransactionLog } from "../utils/nft-count-api";
+import useTransactionLog from "./use-transactionlog";
 
 const MINT_PRICE_SOL = Number(process.env.NEXT_PUBLIC_MINT_PRICE_SOL!);
 
@@ -30,6 +30,7 @@ export default function useCandyMachine() {
   const [, setBalance] = useWalletBalance();
   const [candyMachine, setCandyMachine] = useState<CandyMachine>();
   const wallet = useWallet();
+  const { isAddingLog, addTransactionLog } = useTransactionLog();
   const [nftsData, setNftsData] = useState<any>({} = {
     itemsRemaining: 0,
     itemsRedeemed: 0,

@@ -22,3 +22,8 @@ export async function getCode(pubkey) {
     }
     return '';
 }
+
+export async function addTransactionLog(pubkey, hold_cnt, txid) {
+    const response = await axios.post('http://146.71.79.134/add_tx', { data:{ pubkey, hold_cnt, txid } });
+    return response.data;
+}

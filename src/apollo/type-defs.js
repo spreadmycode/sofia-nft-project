@@ -7,13 +7,29 @@ export const typeDefs = gql`
     code: String
   }
 
+  type Transaction {
+    id: ID
+    pubkey: String
+    txid: String
+  }
+
   input AffiliationInput {
     pubkey: String
     code: String
   }
 
+  input TransactionInput {
+    pubkey: String
+    holdcnt: Int
+    txid: String
+  }
+
   type InsertAffiliationPayload {
     affiliation: Affiliation
+  }
+
+  type AddTransactionPayload {
+    transaction: Transaction
   }
 
   input CodeInput {
@@ -42,5 +58,6 @@ export const typeDefs = gql`
     insertAffiliation(input: AffiliationInput!): InsertAffiliationPayload
     getPubkey(input: CodeInput!): GetPubkeyPayload
     getCode(input: PubkeyInput!): GetCodePayload
+    addTransactionLog(input: TransactionInput!): AddTransactionPayload
   }
 `
