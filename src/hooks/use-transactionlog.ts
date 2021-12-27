@@ -1,5 +1,4 @@
-import { WalletContextState } from '@solana/wallet-adapter-react';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 
 const AddTransactionLogMutation = gql`
