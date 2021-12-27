@@ -167,17 +167,17 @@ const Home = () => {
 
       let possibleQuantity = maxNftHoldCount - nftHoldCount;
       if (possibleQuantity <= 0) {
-        toast.error(`You can't mint more than ${maxNftHoldCount} Panda Warriors.`, { duration: 6000});
+        toast.error(`You can't mint more Panda Warriors with this wallet. Connect another wallet to mint more.`, { duration: 6000});
         return;
       }
 
       if (quantity > possibleQuantity) {
-        toast.error(`You can't mint more than ${possibleQuantity} Panda Warriors right now.`, { duration: 6000});
+        toast.error(`You can't mint more Panda Warriors with this wallet. Connect another wallet to mint more.`, { duration: 6000});
         return;
       }
 
       if (presalePeriod && ((nftsData.itemsRedeemed + quantity) > PRESALE_SOLD_LIMIT_COUNT)) {
-        toast.error(`You can't mint more than ${PRESALE_SOLD_LIMIT_COUNT - nftsData.itemsRedeemed} Panda Warriors because of reaching out limit for pre-sale.`, { duration: 6000});
+        toast.error(`You can't mint more Panda Warriors. Because of reaching out the limit for Pre-Sale.`, { duration: 6000});
         return;
       }
 
