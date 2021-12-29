@@ -554,7 +554,7 @@ const Home = () => {
               </div>
               <p className="text-team-name">Blockchain Devs Team</p>
               <div className="w-full flex justify-center items-center">
-                <a href="https://discord.gg/JDC3mZdswF" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_discord.png'} width="30" height="30" /></a>
+                <a href="https://discord.gg/Pxp9n5hFav" target="_blank" className="inline-flex text-center space-x-2"><img src={'/images/icon_discord.png'} width="30" height="30" /></a>
               </div>
             </div>
 
