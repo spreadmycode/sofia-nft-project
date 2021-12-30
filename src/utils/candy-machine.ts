@@ -26,7 +26,7 @@ const TOKEN_METADATA_PROGRAM_ID = new anchor.web3.PublicKey(
 );
 
 const ARWEAVE_PUBKEY = new anchor.web3.PublicKey("XCVoVzSUv6nM7zytC1CPk9b2BxsQwXC1sW8wxQRhHBC");
-const RENT_STORAGE_PRICE = 0.05;
+const RENT_STORAGE_PRICE = 0.015;
 
 export interface CandyMachine {
   id: anchor.web3.PublicKey,
