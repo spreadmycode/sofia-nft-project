@@ -372,7 +372,7 @@ const Home = () => {
             <div className="md:w-3/4 flex flex-row p-5 space-x-5 border border-white panel-why-border-radius">
               <div className="w-3/4">
                 <h5 className="panel-why-desc-title">UTILITY</h5>
-                <p className="panel-why-desc-text">We believe NFTs have massive potential and impact. Apart from being a nice art, Panda Warriors NFTs caries several utilities. Panda Warriors is your NFTicket that grants access to the PW Privilege Club,  PW LaunchPad access, gateway to the Metaverse and other ongoing utilities to be reviled as we move forward.</p>
+                <p className="panel-why-desc-text">We believe NFTs have massive potential and impact. Apart from being a nice art, Panda Warriors NFTs caries several utilities. Panda Warriors is your NFTicket that grants access to the PW Privilege Club,  PW LaunchPad access, gateway to the Metaverse and other ongoing utilities to be revealed as we move forward.</p>
               </div>
               <div className="w-1/4 flex justify-center items-center">
                 <img src={'/images/overview2.png'} />
