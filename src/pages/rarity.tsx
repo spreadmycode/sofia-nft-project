@@ -145,7 +145,7 @@ const Rarity = () => {
               {
                 hasNextPage && (
                   <button
-                    className={`bg-transparent hover:${loading ? "bg-transparent" : "bg-blue-900 border border-blue-900"} text-blue-900 hover:text-gray-400 py-2 px-4 hover:border-transparent rounded flex inline-block justify-center items-center m-2`}
+                    className={`bg-transparent ${loading ? "hover:bg-transparent" : "hover:bg-blue-900 border border-blue-900"} text-blue-900 hover:text-gray-400 py-2 px-4 hover:border-transparent rounded flex inline-block justify-center items-center m-2`}
                     disabled={isRefetching}
                     onClick={() =>
                       fetchMore({
@@ -217,7 +217,7 @@ const Rarity = () => {
 
                       <div className="mt-5 w-full flex flex-col space-y-2">
 
-                        <div className="w-full flex flex-col md:flex-row">
+                        <div className="w-full flex flex-col md:flex-row space-y-2">
                           <div className="w-full md:w-1/3 rounded-lg overflow-hidden">
                             <a href={nftDetail?.image} target="_blank">
                               <img src={nftDetail?.image} />
