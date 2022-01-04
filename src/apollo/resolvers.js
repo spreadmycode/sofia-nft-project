@@ -4,13 +4,31 @@ import {
     getCode,
     addTransactionLog
 } from '../libs/affiliation';
+import { getItems } from '../libs/rarity';
 
 export const resolvers = {
     Query: {
-        async viewer(_parent, args, context, _info) {
-            const pubkey = await getPubkey(args.input.code);
-            return { pubkey };
-        },
+        async getItems(_parent, args, context, _info) {
+            const first = args.first || 5;
+            const after = args.after || 0;
+
+            const data = await getItems(first, after);
+            const items = data.items;
+            const offset = data.offset;
+            const totalCount = data.totalCount;
+
+            const lastItem = items[items.length - 1];
+            return {
+                pageInfo: {
+                    endCursor: lastItem.hash,
+                    hasNextPage: offset + first < totalCount,
+                },
+                edges: items.map((item) => ({
+                    cursor: item.hash,
+                    node: item,
+                })),
+            };
+        }
     },
     Mutation: {
         async insertAffiliation(_parent, args, _context, _info) {

@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
-import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { useMemo } from 'react';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { relayStylePagination } from "@apollo/client/utilities";
 
-let apolloClient
+let apolloClient;
 
 function createIsomorphLink() {
   if (typeof window === 'undefined') {
@@ -21,7 +22,15 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: createIsomorphLink(),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            getItems: relayStylePagination(),
+          },
+        },
+      },
+    }),
     // uri: "http://localhost:3000/graphql"
   })
 }

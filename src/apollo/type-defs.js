@@ -48,16 +48,39 @@ export const typeDefs = gql`
     code: String
   }
 
-  type Query {
-    affiliation(id: ID!): Affiliation
-    affiliations: [Affiliation]
-    viewer: Affiliation
-  }
-
   type Mutation {
     insertAffiliation(input: AffiliationInput!): InsertAffiliationPayload
     getPubkey(input: CodeInput!): GetPubkeyPayload
     getCode(input: PubkeyInput!): GetCodePayload
     addTransactionLog(input: TransactionInput!): AddTransactionPayload
   }
-`
+
+  type NFTItem {
+    id: Int
+    name: String
+    image: String
+    traits: String
+    score: Int
+    pos: Int
+    hash: String
+  }
+  
+  type Edge {
+    cursor: String
+    node: NFTItem
+  }
+  
+  type PageInfo {
+    endCursor: String
+    hasNextPage: Boolean
+  }
+  
+  type Response {
+    edges: [Edge]
+    pageInfo: PageInfo
+  }
+  
+  type Query {
+    getItems(first: Int, after: String): Response
+  }
+`;
