@@ -249,9 +249,10 @@ const Rarity = () => {
                           {
                             nftDetail?.traits.map((trait: any, index: number) => {
                               return (
-                                <div key={index} className="col-span-1 bg-blue-400 hover:bg-blue-500 rounded-lg overflow-hidden flex flex-col justify-center items-center space-y-2 p-2 cursor-pointer">
+                                <div key={index} className="col-span-1 bg-blue-500 hover:bg-blue-400 rounded-lg overflow-hidden flex flex-col justify-center items-center space-y-1 p-1 cursor-pointer">
                                   <p className="text-center text-gray-600 text-xs">{trait.trait_type}</p>
                                   <p className="text-center text-blue-200 font-bold text-sm">{trait.value}</p>
+                                  <p className="text-center text-gray-600 text-xs">({trait.percent}%)</p>
                                 </div>
                               )
                             })
