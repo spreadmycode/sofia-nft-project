@@ -482,7 +482,7 @@ const Home = () => {
                 <img src={'/images/benefits4.png'} className="image-benefit" />
               </div>
               <h5 className="panel-why-desc-title">TREASURE BOX</h5>
-              <p className="panel-why-desc-text">The Treasure Crypto Box will be filled with 2000 sol (once all 10,000 Panda Warriors has been successfully minted). Community Treasury will be reinvested in buying Virtual Lands & Virtual Estate in the Top Metaverses and highly-potential projects. By holding a Panda Warrior, you will be able to get benefits of owning  a part of a Vistula Land in multiple Metaverses + other ongoing benefits.</p>
+              <p className="panel-why-desc-text">The Treasure Crypto Box will be filled with 2000 sol (once all 10,000 Panda Warriors has been successfully minted). Community Treasury will be reinvested in buying Virtual Lands & Virtual Estate in the Top Metaverses and highly-potential projects. By holding a Panda Warrior, you will be able to get benefits of owning  a part of a Virtual Land in multiple Metaverses + other ongoing benefits.</p>
               <div className="panel-benefit-background-tree w-1/4 h-full"></div>
             </div>
 
