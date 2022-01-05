@@ -3,11 +3,18 @@ import Link from 'next/link'
 
 const Footer: React.FC = () => {
   return <div className="flex bg-black justify-center py-10">
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-6">
       <div className="w-full flex justify-center items-center cursor-pointer">
         <Link href="/">
           <img src={'/images/logo_footer.png'} />
         </Link>
+      </div>
+
+      <div className="w-full flex flex-row justify-center items-center">
+        <a href="https://nftcalendar.io/event/panda-warriors-nft/" target="_blank" className="inline-flex text-center justify-center items-center">
+          <p className="text-section-title">As seen on</p>
+          <img src={'/images/nft_calendar.png'} width="20%" />
+        </a>
       </div>
 
       <div className="w-full flex justify-center items-center">
@@ -16,7 +23,7 @@ const Footer: React.FC = () => {
         </a>
       </div>
 
-      <div className="grid grid-cols-4 gap-6 px-10">
+      <div className="grid grid-cols-4 gap-6 px-10 py-5">
         <a href="https://mobile.twitter.com/PandaWarriorNFT" target="_blank" className="inline-flex text-center justify-center items-center">
           <img src={'/images/icon_twitter.png'} />
         </a>

@@ -12,6 +12,7 @@ export const GET_ITEMS = gql`
       pageInfo {
         endCursor
         hasNextPage
+        traits
       }
       edges {
         cursor
@@ -38,13 +39,85 @@ const Rarity = () => {
   const cancelButtonRef = useRef(null);
   const [nftDetail, setNftDetail] = useState<any>();
 
+  // Search params
+  const [ids, setIds] = useState("");
+  const [skin, setSkin] = useState("");
+  const [background, setBackground] = useState("");
+  const [backgroundProp, setBackgroundProp] = useState("");
+  const [clothes, setClothes] = useState("");
+  const [leftEar, setLeftEar] = useState("");
+  const [eyes, setEyes] = useState("");
+  const [eyeSocket, setEyeSocket] = useState("");
+  const [mouth, setMouth] = useState("");
+  const [rightEar, setRightEar] = useState("");
+  const [eyeAccessory, setEyeAccessory] = useState("");
+  const [fgProp, setFgProp] = useState("");
+  const [headwear, setHeadwear] = useState("");
+  const [rankBottom, setRankBottom] = useState("");
+  const [rankTop, setRankTop] = useState("");
+
   const { error, loading, data, fetchMore, networkStatus } = useQuery(GET_ITEMS, {
     variables: { first, delay },
     notifyOnNetworkStatusChange: true,
   });
 
+  let skinS: Array<any> = [];
+  let backgroundS: Array<any> = [];
+  let backgroundPropS: Array<any> = [];
+  let clothesS: Array<any> = [];
+  let leftEarS: Array<any> = [];
+  let eyesS: Array<any> = [];
+  let eyeSocketS: Array<any> = [];
+  let mouthS: Array<any> = [];
+  let rightEarS: Array<any> = [];
+  let eyeAccessoryS: Array<any> = [];
+  let fgPropS: Array<any> = [];
+  let headwearS: Array<any> = [];
+
   const hasNextPage = data?.getItems.pageInfo.hasNextPage;
   const isRefetching = networkStatus === 3;
+  const traits = data?.getItems.pageInfo.traits;
+  if (traits) {
+    const attributes = JSON.parse(traits);
+    for (let attribute of attributes) {
+      if (attribute.trait_type == "Skin") {
+        skinS = attribute.values;
+      }
+      if (attribute.trait_type == "Background") {
+        backgroundS = attribute.values;
+      }
+      if (attribute.trait_type == "Background Prop") {
+        backgroundPropS = attribute.values;
+      }
+      if (attribute.trait_type == "Clothes") {
+        clothesS = attribute.values;
+      }
+      if (attribute.trait_type == "Left Ear") {
+        leftEarS = attribute.values;
+      }
+      if (attribute.trait_type == "Eyes") {
+        eyesS = attribute.values;
+      }
+      if (attribute.trait_type == "Eye Socket") {
+        eyeSocketS = attribute.values;
+      }
+      if (attribute.trait_type == "Mouth") {
+        mouthS = attribute.values;
+      }
+      if (attribute.trait_type == "Right Ear") {
+        rightEarS = attribute.values;
+      }
+      if (attribute.trait_type == "Eye Accessory") {
+        eyeAccessoryS = attribute.values;
+      }
+      if (attribute.trait_type == "FG Prop") {
+        fgPropS = attribute.values;
+      }
+      if (attribute.trait_type == "Headwear") {
+        headwearS = attribute.values;
+      }
+    }
+  }
 
   const handleShowDetail = (detail: any) => {
     let nftData = {
@@ -53,7 +126,11 @@ const Rarity = () => {
     };
     setNftDetail(nftData);
     setVisibleDetailModal(true);
-  }
+  };
+
+  const handleChange = (value: string, type: string) => {
+
+  };
 
   return (
     <div>
@@ -80,44 +157,145 @@ const Rarity = () => {
               <p className="text-gray-600 p-3">IDs (syntax: 1,2,5-10)</p>
               <input
                 type="text"
+                value={ids}
+                onChange={ (e) => { setIds(e.target.value); handleChange(e.target.value, 'IDS'); } }
                 className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400"
                 placeholder="IDs"
               />
-            
-              <p className="text-gray-600 p-3">Attribute Count</p>
-              <select className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
-                <option className="bg-gray-800 text-gray-400">Please select</option>
-                <option className="bg-gray-800 text-gray-400">Item1</option>
-                <option className="bg-gray-800 text-gray-400">Item2</option>
-                <option className="bg-gray-800 text-gray-400">Item3</option>
+
+              <p className="text-gray-600 p-3">Skin</p>
+              <select onChange={(e) => { setSkin(e.target.value); handleChange(e.target.value, 'Skin'); }} value={skin} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  skinS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
               </select>
 
               <p className="text-gray-600 p-3">Background</p>
-              <select className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
-                <option className="bg-gray-800 text-gray-400">Please select</option>
-                <option className="bg-gray-800 text-gray-400">Item1</option>
-                <option className="bg-gray-800 text-gray-400">Item2</option>
-                <option className="bg-gray-800 text-gray-400">Item3</option>
+              <select onChange={(e) => { setBackground(e.target.value); handleChange(e.target.value, 'Background'); }} value={background} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  backgroundS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
               </select>
 
-              <p className="text-gray-600 p-3">Clothing</p>
-              <select className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
-                <option className="bg-gray-800 text-gray-400">Please select</option>
-                <option className="bg-gray-800 text-gray-400">Item1</option>
-                <option className="bg-gray-800 text-gray-400">Item2</option>
-                <option className="bg-gray-800 text-gray-400">Item3</option>
+              <p className="text-gray-600 p-3">Background Prop</p>
+              <select onChange={(e) => { setBackgroundProp(e.target.value); handleChange(e.target.value, 'Background Prop'); }} value={backgroundProp} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  backgroundPropS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
               </select>
 
+              <p className="text-gray-600 p-3">Clothes</p>
+              <select onChange={(e) => { setClothes(e.target.value); handleChange(e.target.value, 'Clothes'); }} value={clothes} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  clothesS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">Left Ear</p>
+              <select onChange={(e) => { setLeftEar(e.target.value); handleChange(e.target.value, 'Left Ear'); }} value={leftEar} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  leftEarS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">Eyes</p>
+              <select onChange={(e) => { setEyes(e.target.value); handleChange(e.target.value, 'Eyes'); }} value={eyes} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  eyesS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">Eye Socket</p>
+              <select onChange={(e) => { setEyeSocket(e.target.value); handleChange(e.target.value, 'Eye Socket'); }} value={eyeSocket} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  eyeSocketS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">Mouth</p>
+              <select onChange={(e) => { setMouth(e.target.value); handleChange(e.target.value, 'Mouth'); }} value={mouth} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  mouthS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">Right Ear</p>
+              <select onChange={(e) => { setRightEar(e.target.value); handleChange(e.target.value, 'Right Ear'); }} value={rightEar} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  rightEarS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">Eye Accessory</p>
+              <select onChange={(e) => { setEyeAccessory(e.target.value); handleChange(e.target.value, 'Eye Accessory'); }} value={eyeAccessory} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  eyeAccessoryS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">FG Prop</p>
+              <select onChange={(e) => { setFgProp(e.target.value); handleChange(e.target.value, 'FG Prop'); }} value={fgProp} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  fgPropS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
+
+              <p className="text-gray-600 p-3">Headwear</p>
+              <select onChange={(e) => { setHeadwear(e.target.value); handleChange(e.target.value, 'Headwear'); }} value={headwear} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="" className="bg-gray-800 text-gray-400">Please select</option>
+                {
+                  headwearS.map((data: any, idx: number) => {
+                    return <option key={idx} value={data.value}>{data.value} ({data.count})</option>;
+                  })
+                }
+              </select>
 
               <p className="text-gray-600 p-3">Rank</p>
               <div className="w-full flex flex-row space-x-2">
                 <input
-                  type="text"
+                  type="number"
+                  value={rankBottom}
+                  onChange={ (e) => { setRankBottom(e.target.value); handleChange(e.target.value, 'Rank Bottom'); } }
                   className="w-1/2 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400"
                   placeholder="From"
                 />
                 <input
-                  type="text"
+                  type="number"
+                  value={rankTop}
+                  onChange={ (e) => { setRankTop(e.target.value); handleChange(e.target.value, 'Rank Top'); } }
                   className="w-1/2 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400"
                   placeholder="To"
                 />

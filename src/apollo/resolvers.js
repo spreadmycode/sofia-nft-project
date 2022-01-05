@@ -16,12 +16,14 @@ export const resolvers = {
             const items = data.items;
             const offset = data.offset;
             const totalCount = data.totalCount;
+            const traits = data.traits;
 
             const lastItem = items[items.length - 1];
             return {
                 pageInfo: {
                     endCursor: lastItem.hash,
                     hasNextPage: offset + first < totalCount,
+                    traits
                 },
                 edges: items.map((item) => ({
                     cursor: item.hash,
