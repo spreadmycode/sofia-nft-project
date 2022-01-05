@@ -10,13 +10,28 @@ export const resolvers = {
     Query: {
         async getItems(_parent, args, context, _info) {
             const first = args.first || 5;
+            const filters = args.filters || [];
             const after = args.after || 0;
+            const ids = args.ids || [];
+            const bottom = args.bottom || 0;
+            const top = args.top || 0;
 
-            const data = await getItems(first, after);
+            const data = await getItems(first, filters, after, ids, bottom, top);
             const items = data.items;
             const offset = data.offset;
             const totalCount = data.totalCount;
             const traits = data.traits;
+
+            if (totalCount == 0) {
+                return {
+                    pageInfo: {
+                        endCursor: null,
+                        hasNextPage: false,
+                        traits: "[]"
+                    },
+                    edges: [],
+                };
+            }
 
             const lastItem = items[items.length - 1];
             return {

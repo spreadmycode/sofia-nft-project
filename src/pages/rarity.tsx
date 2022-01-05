@@ -7,8 +7,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useState, Fragment, useRef } from 'react';
 
 export const GET_ITEMS = gql`
-  query getItems($first: Int, $after: String) {
-    getItems(first: $first, after: $after) {
+  query getItems($first: Int, $filters: [String], $after: String, $ids: [Int], $bottom: Int, $top: Int) {
+    getItems(first: $first, filters: $filters, after: $after, ids: $ids, bottom: $bottom, top: $top) {
       pageInfo {
         endCursor
         hasNextPage
@@ -30,6 +30,10 @@ export const GET_ITEMS = gql`
   }
 `;
 
+let filters: Array<string> = [];
+let nftIds: Array<number> = [];
+let bottom: number = 0;
+let top: number = 0;
 const first = 20;
 const delay = true;
 
@@ -56,8 +60,8 @@ const Rarity = () => {
   const [rankBottom, setRankBottom] = useState("");
   const [rankTop, setRankTop] = useState("");
 
-  const { error, loading, data, fetchMore, networkStatus } = useQuery(GET_ITEMS, {
-    variables: { first, delay },
+  const { error, loading, data, networkStatus, fetchMore, refetch } = useQuery(GET_ITEMS, {
+    variables: { first, filters, ids: nftIds, bottom, top, delay },
     notifyOnNetworkStatusChange: true,
   });
 
@@ -128,9 +132,116 @@ const Rarity = () => {
     setVisibleDetailModal(true);
   };
 
-  const handleChange = (value: string, type: string) => {
+  const handleFilter = (type: string) => {
+    if (skin != '' && type != 'Skin') {
+      filters.push(`"trait_type":"Skin","value":"${skin}"`);
+    }
+    if (background != '' && type != 'Background') {
+      filters.push(`"trait_type":"Background","value":"${background}"`);
+    }
+    if (backgroundProp != '' && type != 'Background Prop') {
+      filters.push(`"trait_type":"Background","value":"${background}"`);
+    }
+    if (clothes != '' && type != 'Clothes') {
+      filters.push(`"trait_type":"Clothes","value":"${clothes}"`);
+    }
+    if (leftEar != '' && type != 'Left Ear') {
+      filters.push(`"trait_type":"Left Ear","value":"${leftEar}"`);
+    }
+    if (eyes != '' && type != 'Eyes') {
+      filters.push(`"trait_type":"Eyes","value":"${eyes}"`);
+    }
+    if (eyeSocket != '' && type != 'Eye Socket') {
+      filters.push(`"trait_type":"Eye Socket","value":"${eyeSocket}"`);
+    }
+    if (mouth != '' && type != 'Mouth') {
+      filters.push(`"trait_type":"Mouth","value":"${mouth}"`);
+    }
+    if (rightEar != '' && type != 'Right Ear') {
+      filters.push(`"trait_type":"Right Ear","value":"${rightEar}"`);
+    }
+    if (eyeAccessory != '' && type != 'Eye Accessory') {
+      filters.push(`"trait_type":"Eye Accessory","value":"${eyeAccessory}"`);
+    }
+    if (fgProp != '' && type != 'FG Prop') {
+      filters.push(`"trait_type":"FG Prop","value":"${fgProp}"`);
+    }
+    if (headwear != '' && type != 'Headwear') {
+      filters.push(`"trait_type":"Headwear","value":"${headwear}"`);
+    }
+  }
 
+  const validParams = () => {
+    if (nftIds.length == 0) {
+      setIds("");
+    }
+    if (bottom == 0 || top == 0 || bottom >= top) {
+      setRankBottom("");
+      setRankTop("");
+    }
+  }
+
+  const handleChange = (value: string, type: string) => {
+    validParams();
+
+    filters = [];
+    if (value != '') {
+      filters.push(`"trait_type":"${type}","value":"${value}"`);
+    }
+    handleFilter(type);
+    refetch({ first, filters, ids:nftIds, bottom, top, delay });
   };
+
+  const handleEnter = (key: string, type: string) => {
+    if (key != 'Enter') return;
+    try {
+      if (type == 'IDS') {
+        nftIds = [];
+        if (ids.includes(',')) {
+          const chunks = ids.split(',');
+          console.log(chunks);
+          for (let chunk of chunks) {
+            if (chunk.includes('-')) {
+              const range = chunk.split('-');
+              const bottom = parseInt(range[0]);
+              const top = parseInt(range[1]);
+              for (let i = bottom; i <= top; i++) {
+                nftIds.push(i);
+              }
+            } else {
+              nftIds.push(parseInt(chunk));
+            }
+          }
+        } else {
+          if (ids.includes('-')) {
+            const range = ids.split('-');
+            const bottom = parseInt(range[0]);
+            const top = parseInt(range[1]);
+            for (let i = bottom; i <= top; i++) {
+              nftIds.push(i);
+            }
+          } else {
+            if (ids != "") {
+              nftIds.push(parseInt(ids));
+            }
+          }
+        }
+
+        refetch({ first, filters, ids:nftIds, bottom, top, delay });
+      }
+
+      if (type == 'Rank Bottom' || type == 'Rank Top') {
+        bottom = parseInt(rankBottom);
+        top = parseInt(rankTop);
+
+        refetch({ first, filters, ids:nftIds, bottom, top, delay });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    validParams();
+  }
 
   return (
     <div>
@@ -150,7 +261,7 @@ const Rarity = () => {
           :
           <div className="flex flex-col md:flex-row space-y-2 md:space-x-2">
 
-            <div className="w-full md:w-1/4 flex flex-col theme-bg-color px-5">
+            <div className="w-full md:w-1/4 flex flex-col theme-bg-color p-5">
               <p className="text-gray-400 text-center font-bold p-3">ITEM FILTERS</p>
               <div className="h-px bg-gray-600"></div>
 
@@ -158,7 +269,8 @@ const Rarity = () => {
               <input
                 type="text"
                 value={ids}
-                onChange={ (e) => { setIds(e.target.value); handleChange(e.target.value, 'IDS'); } }
+                onChange={ (e) => setIds(e.target.value.replace(" ", "")) }
+                onKeyDown={ (e) => handleEnter(e.key, 'IDS') }
                 className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400"
                 placeholder="IDs"
               />
@@ -288,14 +400,16 @@ const Rarity = () => {
                 <input
                   type="number"
                   value={rankBottom}
-                  onChange={ (e) => { setRankBottom(e.target.value); handleChange(e.target.value, 'Rank Bottom'); } }
+                  onChange={ (e) => setRankBottom(e.target.value) }
+                  onKeyDown={ (e) => handleEnter(e.key, 'Rank Bottom') }
                   className="w-1/2 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400"
                   placeholder="From"
                 />
                 <input
                   type="number"
                   value={rankTop}
-                  onChange={ (e) => { setRankTop(e.target.value); handleChange(e.target.value, 'Rank Top'); } }
+                  onChange={ (e) => setRankTop(e.target.value) }
+                  onKeyDown={ (e) => handleEnter(e.key, 'Rank Top') }
                   className="w-1/2 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400"
                   placeholder="To"
                 />
