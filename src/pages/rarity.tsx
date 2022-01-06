@@ -257,7 +257,7 @@ const Rarity = () => {
       <section>
       {
         error ?
-            <p className="text-center text-white">Error! ${error}</p>
+            <p className="text-center text-white">Error occured caused by ${error}</p>
           :
           <div className="flex flex-col md:flex-row space-y-2 md:space-x-2">
 
