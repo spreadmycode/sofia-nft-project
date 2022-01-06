@@ -421,7 +421,7 @@ const Rarity = () => {
               </div>
 
               <p className="text-gray-600 p-3">Sort by:</p>
-              <select onChange={(e) => { setSort(e.target.value); handleSort(e.target.value); }} value={sort} className="w-full md:w-40 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+              <select onChange={(e) => { setSort(e.target.value); handleSort(e.target.value); }} value={sort} className="w-full h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
                 <option value="pos-ASC" className="bg-gray-800 text-gray-400">Rank &#8593;</option>
                 <option value="pos-DESC" className="bg-gray-800 text-gray-400">Rank &#8595;</option>
                 <option value="id-ASC" className="bg-gray-800 text-gray-400">ID &#8593;</option>
