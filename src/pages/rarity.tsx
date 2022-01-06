@@ -419,17 +419,17 @@ const Rarity = () => {
                   placeholder="To"
                 />
               </div>
+
+              <p className="text-gray-600 p-3">Sort by:</p>
+              <select onChange={(e) => { setSort(e.target.value); handleSort(e.target.value); }} value={sort} className="w-full md:w-40 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                <option value="pos-ASC" className="bg-gray-800 text-gray-400">Rank &#8593;</option>
+                <option value="pos-DESC" className="bg-gray-800 text-gray-400">Rank &#8595;</option>
+                <option value="id-ASC" className="bg-gray-800 text-gray-400">ID &#8593;</option>
+                <option value="id-DESC" className="bg-gray-800 text-gray-400">ID &#8595;</option>
+              </select>
             </div>
 
             <div className="w-full md:w-3/4 flex flex-col">
-              <div className="w-full flex flex-row justify-end items-center px-2">
-                <select onChange={(e) => { setSort(e.target.value); handleSort(e.target.value); }} value={sort} className="w-full md:w-1/4 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
-                  <option value="pos-ASC" className="bg-gray-800 text-gray-400">Sort by Rank (Asc)</option>
-                  <option value="pos-DESC" className="bg-gray-800 text-gray-400">Sort by Rank (Desc)</option>
-                  <option value="id-ASC" className="bg-gray-800 text-gray-400">Sort by ID (Asc)</option>
-                  <option value="id-DESC" className="bg-gray-800 text-gray-400">Sort by ID (Desc)</option>
-                </select>
-              </div>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-3 m-2">
                 {
                   data?.getItems.edges.map((edge: any) => {
