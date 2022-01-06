@@ -7,8 +7,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useState, Fragment, useRef } from 'react';
 
 export const GET_ITEMS = gql`
-  query getItems($first: Int, $filters: [String], $after: String, $ids: [Int], $bottom: Int, $top: Int) {
-    getItems(first: $first, filters: $filters, after: $after, ids: $ids, bottom: $bottom, top: $top) {
+  query getItems($first: Int, $filters: [String], $after: String, $ids: [Int], $bottom: Int, $top: Int, $sort: String) {
+    getItems(first: $first, filters: $filters, after: $after, ids: $ids, bottom: $bottom, top: $top, sort: $sort) {
       pageInfo {
         endCursor
         hasNextPage
@@ -45,6 +45,7 @@ const Rarity = () => {
 
   // Search params
   const [ids, setIds] = useState("");
+  const [sort, setSort] = useState("");
   const [skin, setSkin] = useState("");
   const [background, setBackground] = useState("");
   const [backgroundProp, setBackgroundProp] = useState("");
@@ -61,7 +62,7 @@ const Rarity = () => {
   const [rankTop, setRankTop] = useState("");
 
   const { error, loading, data, networkStatus, fetchMore, refetch } = useQuery(GET_ITEMS, {
-    variables: { first, filters, ids: nftIds, bottom, top, delay },
+    variables: { first, filters, ids: nftIds, bottom, top, sort, delay },
     notifyOnNetworkStatusChange: true,
   });
 
@@ -189,8 +190,12 @@ const Rarity = () => {
       filters.push(`"trait_type":"${type}","value":"${value}"`);
     }
     handleFilter(type);
-    refetch({ first, filters, ids:nftIds, bottom, top, delay });
+    refetch({ first, filters, ids:nftIds, bottom, top, sort, delay });
   };
+
+  const handleSort = (value: string) => {
+    refetch({ first, filters, ids:nftIds, bottom, top, sort: value, delay });
+  }
 
   const handleEnter = (key: string, type: string) => {
     if (key != 'Enter') return;
@@ -227,14 +232,14 @@ const Rarity = () => {
           }
         }
 
-        refetch({ first, filters, ids:nftIds, bottom, top, delay });
+        refetch({ first, filters, ids:nftIds, bottom, top, sort, delay });
       }
 
       if (type == 'Rank Bottom' || type == 'Rank Top') {
         bottom = parseInt(rankBottom);
         top = parseInt(rankTop);
 
-        refetch({ first, filters, ids:nftIds, bottom, top, delay });
+        refetch({ first, filters, ids:nftIds, bottom, top, sort, delay });
       }
     } catch (e) {
       console.log(e);
@@ -417,6 +422,14 @@ const Rarity = () => {
             </div>
 
             <div className="w-full md:w-3/4 flex flex-col">
+              <div className="w-full flex flex-row justify-end items-center px-2">
+                <select onChange={(e) => { setSort(e.target.value); handleSort(e.target.value); }} value={sort} className="w-full md:w-1/4 h-10 border-0 border-grey-light rounded px-2 self-center outline-none bg-gray-800 text-gray-400">
+                  <option value="pos-ASC" className="bg-gray-800 text-gray-400">Sort by Rank (Asc)</option>
+                  <option value="pos-DESC" className="bg-gray-800 text-gray-400">Sort by Rank (Desc)</option>
+                  <option value="id-ASC" className="bg-gray-800 text-gray-400">Sort by ID (Asc)</option>
+                  <option value="id-DESC" className="bg-gray-800 text-gray-400">Sort by ID (Desc)</option>
+                </select>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-3 m-2">
                 {
                   data?.getItems.edges.map((edge: any) => {

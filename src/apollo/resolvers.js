@@ -15,8 +15,9 @@ export const resolvers = {
             const ids = args.ids || [];
             const bottom = args.bottom || 0;
             const top = args.top || 0;
+            const sort = args.sort || 'pos-ASC';
 
-            const data = await getItems(first, filters, after, ids, bottom, top);
+            const data = await getItems(first, filters, after, ids, bottom, top, sort);
             const items = data.items;
             const offset = data.offset;
             const totalCount = data.totalCount;

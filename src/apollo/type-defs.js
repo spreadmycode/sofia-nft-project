@@ -82,6 +82,6 @@ export const typeDefs = gql`
   }
   
   type Query {
-    getItems(first: Int, filters: [String], after: String, ids: [Int], bottom: Int, top: Int): Response
+    getItems(first: Int, filters: [String], after: String, ids: [Int], bottom: Int, top: Int, sort: String): Response
   }
 `;
