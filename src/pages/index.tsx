@@ -329,6 +329,7 @@ const Home = () => {
 
       <section ref={mintRef}>
         <div className="w-full">
+        <h5 className="text-white presale-title drop-shadow-lg text-center">MINT IS LIVE.</h5>
           <h5 className="text-white presale-title drop-shadow-lg text-center">PRE-SALE <span className="text-yellow-500">1SOL</span></h5>
           <div className="panel-mint">
             <div className="panel-mint-background">
