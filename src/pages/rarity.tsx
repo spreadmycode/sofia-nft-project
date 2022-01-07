@@ -268,6 +268,7 @@ const Rarity = () => {
 
             <div className="w-full md:w-1/4 flex flex-col theme-bg-color p-5">
               <p className="text-gray-400 text-center font-bold p-3">ITEM FILTERS</p>
+              
               <div className="h-px bg-gray-600"></div>
 
               <p className="text-gray-600 p-3">IDs (syntax: 1,2,5-10)</p>
