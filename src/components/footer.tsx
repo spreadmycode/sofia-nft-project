@@ -17,9 +17,15 @@ const Footer: React.FC = () => {
         </a>
       </div>
 
+      <div className="w-full flex flex-row justify-center items-center">
+        <a href="https://nftsolana.io" target="_blank" className="inline-flex text-center justify-center items-center">
+          <img src={'/images/nft_logo.png'} />
+        </a>
+      </div>
+
       <div className="w-full flex justify-center items-center">
         <a href="https://raritysniper.com/" target="_blank" className="inline-flex text-center justify-center items-center">
-          <img src={'/images/rarity_logo/logo3-white.png'} width="40%" />
+          <img src={'/images/rarity_logo/logo3-white.png'} width="50%" />
         </a>
       </div>
 
