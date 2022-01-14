@@ -40,9 +40,9 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
         <>
           <div className="flex-grow flex flex-row justify-between items-center">
             <div></div>
-            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(whyusRef, 'WHYUS')} >
+            {/* <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(whyusRef, 'WHYUS')} >
               WHY US
-            </button>
+            </button> */}
             <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(roadmapRef, 'ROADMAP')} >
               ROADMAP
             </button>
@@ -88,9 +88,9 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
     </div>
     {isMenuShowed &&
       <div className="flex flex-col space-y-2 w-full theme-bg-color p-2">
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(whyusRef, 'WHYUS')} >
+        {/* <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(whyusRef, 'WHYUS')} >
           WHY US
-        </button>
+        </button> */}
         <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(roadmapRef, 'ROADMAP')} >
           ROADMAP
         </button>

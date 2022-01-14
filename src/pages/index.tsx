@@ -355,7 +355,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section ref={whyusRef}>
+      {/* <section ref={whyusRef}>
         <div className="w-full px-10">
           <h3 className="text-section-title pb-10">WHY PANDA WARRIORS</h3>
           <div className="w-full flex md:justify-start items-center mb-10 z-order-content">
@@ -425,7 +425,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section ref={roadmapRef} className="section-roadmap">
         <div className="panel-roadmap">
