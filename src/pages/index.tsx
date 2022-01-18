@@ -160,36 +160,36 @@ const Home = () => {
 
       setVisibleCheckModal(false);
 
-      if (treasuryPubkey != wallet.publicKey?.toBase58()) {
-        let nftHoldCount = 0;
-        if (wallet.publicKey) {
-          setIsGetNftHoldCount(true);
+      // if (treasuryPubkey != wallet.publicKey?.toBase58()) {
+      //   let nftHoldCount = 0;
+      //   if (wallet.publicKey) {
+      //     setIsGetNftHoldCount(true);
   
-          // Get currently hold PW count
-          nftHoldCount = await getNftHoldCount(connection, wallet.publicKey);
+      //     // Get currently hold PW count
+      //     nftHoldCount = await getNftHoldCount(connection, wallet.publicKey);
   
-          setIsGetNftHoldCount(false);
-        } else {
-          toast.error("Mint failed. Please try again.");
-          return;
-        }
+      //     setIsGetNftHoldCount(false);
+      //   } else {
+      //     toast.error("Mint failed. Please try again.");
+      //     return;
+      //   }
   
-        let possibleQuantity = maxNftHoldCount - nftHoldCount;
-        if (possibleQuantity <= 0) {
-          toast.error(`You can't mint more Panda Warriors with this wallet. Connect another wallet to mint more.`, { duration: 6000});
-          return;
-        }
+      //   let possibleQuantity = maxNftHoldCount - nftHoldCount;
+      //   if (possibleQuantity <= 0) {
+      //     toast.error(`You can't mint more Panda Warriors with this wallet. Connect another wallet to mint more.`, { duration: 6000});
+      //     return;
+      //   }
   
-        if (quantity > possibleQuantity) {
-          toast.error(`You can't mint more Panda Warriors with this wallet. Connect another wallet to mint more.`, { duration: 6000});
-          return;
-        }
+      //   if (quantity > possibleQuantity) {
+      //     toast.error(`You can't mint more Panda Warriors with this wallet. Connect another wallet to mint more.`, { duration: 6000});
+      //     return;
+      //   }
   
-        if (presalePeriod && ((nftsData.itemsRedeemed + quantity) > PRESALE_SOLD_LIMIT_COUNT)) {
-          toast.error(`You can't mint more Panda Warriors. Because of reaching out the limit for Pre-Sale.`, { duration: 6000});
-          return;
-        }
-      }
+      //   if (presalePeriod && ((nftsData.itemsRedeemed + quantity) > PRESALE_SOLD_LIMIT_COUNT)) {
+      //     toast.error(`You can't mint more Panda Warriors. Because of reaching out the limit for Pre-Sale.`, { duration: 6000});
+      //     return;
+      //   }
+      // }
       
       await onMintNFT(quantity, existPubkey);
     }
@@ -801,7 +801,7 @@ const Home = () => {
                           <p className="text-sm text-gray-500">
                             Select mint amount (1~{maxNftHoldCount}).
                           </p>
-                          <input min={1} max={maxNftHoldCount} value={quantity} onChange={(e) => {setQuantity(Number(e.target.value))}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 mx-auto text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="number" placeholder="Mint Amount" />
+                          <input min={1} max={10} value={quantity} onChange={(e) => {setQuantity(Number(e.target.value))}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 mx-auto text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="number" placeholder="Mint Amount" />
                         </div>
                       </div>
                     </div>
