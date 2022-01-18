@@ -799,7 +799,7 @@ const Home = () => {
                       <div className="mt-5 w-full flex justify-center items-center">
                         <div>
                           <p className="text-sm text-gray-500">
-                            Select mint amount (1~{maxNftHoldCount}).
+                            Select mint amount (1~10).
                           </p>
                           <input min={1} max={10} value={quantity} onChange={(e) => {setQuantity(Number(e.target.value))}} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 mx-auto text-black mt-5 leading-tight focus:outline-none focus:shadow-outline text-center" type="number" placeholder="Mint Amount" />
                         </div>
