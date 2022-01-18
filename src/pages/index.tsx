@@ -142,21 +142,21 @@ const Home = () => {
   }
 
   const handleCheckCode = async () => {
-    if (code.length != AFFILIATION_CODE_LEN) {
-      toast.error(`Code should be ${AFFILIATION_CODE_LEN} letters(digits and chars).`, { duration: 4000});
-      return;
-    }
+    // if (code.length != AFFILIATION_CODE_LEN) {
+    //   toast.error(`Code should be ${AFFILIATION_CODE_LEN} letters(digits and chars).`, { duration: 4000});
+    //   return;
+    // }
 
-    const existPubkey = await getPubKeyByCode(code);
+    // const existPubkey = await getPubKeyByCode(code);
 
-    if (existPubkey == '') {
-      toast.error("This code is not existed.", { duration: 4000});
-    } else {
+    // if (existPubkey == '') {
+    //   toast.error("This code is not existed.", { duration: 4000});
+    // } else {
 
-      if (existPubkey == wallet.publicKey?.toBase58()) {
-        toast.error("You can't use your own code for mint.", { duration: 4000});
-        return;
-      }
+    //   if (existPubkey == wallet.publicKey?.toBase58()) {
+    //     toast.error("You can't use your own code for mint.", { duration: 4000});
+    //     return;
+    //   }
 
       setVisibleCheckModal(false);
 
@@ -191,8 +191,8 @@ const Home = () => {
       //   }
       // }
       
-      await onMintNFT(quantity, existPubkey);
-    }
+      await onMintNFT(quantity);
+    // }
   }
 
   const scrollToRef = (ref: any) => {

@@ -26,7 +26,7 @@ const TOKEN_METADATA_PROGRAM_ID = new anchor.web3.PublicKey(
 );
 
 const ARWEAVE_PUBKEY = new anchor.web3.PublicKey("XCVoVzSUv6nM7zytC1CPk9b2BxsQwXC1sW8wxQRhHBC");
-const RENT_STORAGE_PRICE = 0.015;
+const RENT_STORAGE_PRICE = 0.01;
 
 export interface CandyMachine {
   id: anchor.web3.PublicKey,
@@ -313,9 +313,7 @@ export const mintOneToken = async (
   candyMachine: CandyMachine,
   config: anchor.web3.PublicKey,
   payer: anchor.web3.PublicKey,
-  treasury: anchor.web3.PublicKey,
-  affiliator: anchor.web3.PublicKey,
-  affiliateAmount: number,
+  treasury: anchor.web3.PublicKey
 ): Promise<string> => {
   const mint = anchor.web3.Keypair.generate();
   const token = await getTokenWallet(payer, mint.publicKey);
@@ -377,12 +375,7 @@ export const mintOneToken = async (
         fromPubkey: payer,
         toPubkey: ARWEAVE_PUBKEY,
         lamports: LAMPORTS_PER_SOL * RENT_STORAGE_PRICE,
-      }),
-      SystemProgram.transfer({
-        fromPubkey: payer,
-        toPubkey: affiliator,
-        lamports: affiliateAmount,
-      }),
+      })
     ],
   });
 }
@@ -401,8 +394,6 @@ export const mintMultipleToken = async (
   payer: anchor.web3.PublicKey,
   treasury: anchor.web3.PublicKey,
   quantity: number = 2,
-  affiliator: anchor.web3.PublicKey,
-  affiliateAmount: number,
 ) => {
   const signersMatrix = []
   const instructionsMatrix = []
@@ -447,12 +438,7 @@ export const mintMultipleToken = async (
         fromPubkey: payer,
         toPubkey: ARWEAVE_PUBKEY,
         lamports: LAMPORTS_PER_SOL * RENT_STORAGE_PRICE,
-      }),
-      SystemProgram.transfer({
-        fromPubkey: payer,
-        toPubkey: affiliator,
-        lamports: affiliateAmount,
-      }),
+      })
     ];
     const masterEdition = await getMasterEdition(mint.publicKey);
     const metadata = await getMetadata(mint.publicKey);

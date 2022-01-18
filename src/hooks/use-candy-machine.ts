@@ -90,7 +90,7 @@ export default function useCandyMachine() {
     })();
   }, [wallet, candyMachineId, connection, isMinting]);
 
-  const onMint = async (affiliatorPubkey: string) => {
+  const onMint = async () => {
     try {
       setIsMinting(true);
       const anchorWallet = {
@@ -106,15 +106,11 @@ export default function useCandyMachine() {
         );
 
       if (wallet.connected && candyMachine?.program && wallet.publicKey) {
-        const affiliator = new anchor.web3.PublicKey(affiliatorPubkey);
-        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / AFFILIATION_WEIGHT;
         const mintTxId = await mintOneToken(
           candyMachine,
           config,
           wallet.publicKey,
-          treasury,
-          affiliator,
-          affiliateAmount,
+          treasury
         );
 
         const status = await awaitTransactionSignatureConfirmation(
@@ -161,7 +157,7 @@ export default function useCandyMachine() {
     }
   };
 
-  const onMintMultiple = async (quantity: number, affiliatorPubkey: string) => {
+  const onMintMultiple = async (quantity: number) => {
     try {
       setIsMinting(true);
       const anchorWallet = {
@@ -176,16 +172,12 @@ export default function useCandyMachine() {
           connection
         );
       if (wallet.connected && candyMachine?.program && wallet.publicKey) {
-        const affiliator = new anchor.web3.PublicKey(affiliatorPubkey);
-        const affiliateAmount = (MINT_PRICE_SOL * LAMPORTS_PER_SOL) / AFFILIATION_WEIGHT;
         const signedTransactions: any = await mintMultipleToken(
           candyMachine,
           config,
           wallet.publicKey,
           treasury,
-          quantity,
-          affiliator,
-          affiliateAmount
+          quantity
         );
 
         const promiseArray = [];
@@ -259,11 +251,11 @@ export default function useCandyMachine() {
     }
   };
 
-  const onMintNFT = async (quantity: number, affilatorPubkey: string) => {    
+  const onMintNFT = async (quantity: number) => {    
     if (quantity == 1) {
-      await onMint(affilatorPubkey);
+      await onMint();
     } else if (quantity > 1) {
-      await onMintMultiple(quantity, affilatorPubkey);
+      await onMintMultiple(quantity);
     }
   }
 
