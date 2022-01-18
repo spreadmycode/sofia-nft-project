@@ -534,7 +534,6 @@ const Home = () => {
       <section ref={teamRef}>
         <div className="w-full px-10">
           <h3 className="text-section-title pb-10">TEAM</h3>
-
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
             <div className="col-span-1 flex flex-col space-y-2">
               <div className="w-full flex justify-center items-center">
