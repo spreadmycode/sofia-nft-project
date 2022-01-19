@@ -190,7 +190,6 @@ const Home = () => {
       //     return;
       //   }
       // }
-      
       await onMintNFT(quantity);
     // }
   }
