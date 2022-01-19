@@ -276,7 +276,7 @@ const Home = () => {
       </section>
       }
       
-      <section ref={referralRef}>
+      <section>
         <div className="w-full md:h-screen flex justify-center items-end relative px-5 md:px-10">
           <div className="h-4/5 z-order-content">
             <div className="flex flex-col md:flex-row h-5/6">
@@ -293,7 +293,7 @@ const Home = () => {
                 <img src={'/images/art4.png'} />
               </div>
             </div>
-            <div>
+            <div ref={referralRef}>
               <p className="text-white text-center overview-desc mt-5">
                 Invite friends to Panda Warriors and earn 0.1 SOL for every NFT mint with your invite code
               </p>
