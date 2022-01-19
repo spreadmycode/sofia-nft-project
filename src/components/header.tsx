@@ -22,7 +22,7 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
     } else {
       window.scroll(
         {
-          top: ref.current.offsetTop,
+          top: (ref.current.offsetTop + ((ref == referralRef) ? 400 : 0) + (((ref == referralRef) && (width < 768)) ? 800 : 0)),
           behavior: "smooth",
         }
       );
@@ -119,6 +119,9 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
             MARKETPLACE
           </button>
         </Link> */}
+        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(referralRef, 'REFERRAL')} >
+          Referral
+        </button>
         <div className="w-full flex justify-center items-center">
           <button className="button-mint" onClick={() => scrollTo(mintRef, 'MINT')} >
             MINT

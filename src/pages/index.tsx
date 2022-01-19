@@ -198,10 +198,10 @@ const Home = () => {
 
   const scrollToRef = (ref: any) => {
     window.scroll(
-        {
-          top: ref.current.offsetTop,
-          behavior: "smooth",
-        }
+      {
+        top: (ref.current.offsetTop + ((ref == referralRef) ? 400 : 0) + (((ref == referralRef) && (width < 768)) ? 800 : 0)),
+        behavior: "smooth",
+      }
     );
   };
 
@@ -276,7 +276,7 @@ const Home = () => {
       </section>
       }
       
-      <section>
+      <section ref={referralRef}>
         <div className="w-full md:h-screen flex justify-center items-end relative px-5 md:px-10">
           <div className="h-4/5 z-order-content">
             <div className="flex flex-col md:flex-row h-5/6">
@@ -293,7 +293,7 @@ const Home = () => {
                 <img src={'/images/art4.png'} />
               </div>
             </div>
-            <div ref={referralRef}>
+            <div>
               <p className="text-white text-center overview-desc mt-5">
                 Invite friends to Panda Warriors and earn 0.1 SOL for every NFT mint with your invite code
               </p>
@@ -335,6 +335,8 @@ const Home = () => {
           </div>
         </div>
       </section> */}
+
+      <section></section>
 
       <section ref={mintRef}>
         <div className="w-full">
