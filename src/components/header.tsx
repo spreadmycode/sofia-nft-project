@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useWindowSize } from '../hooks/use-window-size';
 import { useLocalStorage } from '@solana/wallet-adapter-react';
 
-const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqRef, mintRef}: any) => {
+const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqRef, mintRef, referralRef}: any) => {
 
   const {width, height} = useWindowSize();
 
@@ -63,11 +63,14 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
                 LAUNCHPAD
               </button>
             </Link>
-            <Link href="/marketplace">
+            {/* <Link href="/marketplace">
               <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" >
                 MARKETPLACE
               </button>
-            </Link>
+            </Link> */}
+            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(referralRef, 'REFERRAL')} >
+              Referral
+            </button>
             <button className="button-mint" onClick={() => scrollTo(mintRef, 'MINT')} >
               MINT
             </button>

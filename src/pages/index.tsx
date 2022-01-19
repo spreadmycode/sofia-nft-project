@@ -49,6 +49,7 @@ const Home = () => {
   const teamRef = useRef(null);
   const faqRef = useRef(null);
   const mintRef = useRef(null);
+  const referralRef = useRef(null);
 
   // Handlers
   const handleMintButtonClicked = () => {
@@ -229,6 +230,9 @@ const Home = () => {
         case 'MINT':
           scrollToRef(mintRef);
           break;
+        case 'REFERRAL':
+          scrollToRef(referralRef);
+          break;
       }
 
       setTag('');
@@ -245,7 +249,7 @@ const Home = () => {
         <link rel="icon" href="/icon.png" />
       </Head>
 
-      <Header whyusRef={whyusRef} roadmapRef={roadmapRef} benefitsRef={benefitsRef} attributesRef={attributesRef} teamRef={teamRef} faqRef={faqRef} mintRef={mintRef} />
+      <Header whyusRef={whyusRef} roadmapRef={roadmapRef} benefitsRef={benefitsRef} attributesRef={attributesRef} teamRef={teamRef} faqRef={faqRef} mintRef={mintRef} referralRef={referralRef} />
 
       {(width > 768) ?
       <section>
@@ -272,7 +276,7 @@ const Home = () => {
       </section>
       }
       
-      <section>
+      <section ref={referralRef}>
         <div className="w-full md:h-screen flex justify-center items-end relative px-5 md:px-10">
           <div className="h-4/5 z-order-content">
             <div className="flex flex-col md:flex-row h-5/6">
@@ -289,8 +293,13 @@ const Home = () => {
                 <img src={'/images/art4.png'} />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 mt-16">
-              <a href="https://discord.com/invite/EaefjHZJKH" target="_blank" className="m-2 col-span-1 md:col-start-2 z-order-top">
+            <div>
+              <p className="text-white text-center overview-desc mt-5">
+                Invite friends to Panda Warriors and earn 0.1 SOL for every NFT mint with your invite code
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 mt-8">
+              <a href="https://discord.gg/gVTbmQ6TYe" target="_blank" className="m-2 col-span-1 md:col-start-2 z-order-top">
                 <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded inline-flex items-center justify-center py-2 space-x-2 w-full">
                   <img src={'/images/icon_button_discord.png'} width={20} height={20} />
                   <span>Join Discord</span>
