@@ -586,6 +586,7 @@ const Home = () => {
 
       <section ref={faqRef}>
         <div className="w-full px-5 md:px-16 pb-10 relative">
+          
           <h3 className="text-section-title pb-10">FAQ'S</h3>
 
           <div className="panel-faq">
