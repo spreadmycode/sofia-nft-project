@@ -295,7 +295,7 @@ const Home = () => {
             </div>
             <div>
               <p className="text-white text-center overview-desc mt-5">
-                Invite friends to Panda Warriors and earn 0.1 SOL for every NFT mint with your invite code
+                Invite friends to Panda Warriors and earn 0.119 SOL for every NFT mint with your invite code
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 mt-8">
