@@ -615,7 +615,7 @@ const Home = () => {
                     <div>What is a Public Mint Price?</div>
                     <div className='faq-icon'>{activeFaqIndex == 3 ? <img src={'/images/icon_faq_active.png'} width='20' /> : <img src={'/images/icon_faq.png'} width='12' />}</div>
                 </div>
-                <div className={activeFaqIndex == 3 ? 'active-faq-content' : 'faq-content'}>Mint Price is 1.5 SOL.</div>
+                <div className={activeFaqIndex == 3 ? 'active-faq-content' : 'faq-content'}>Mint Price is 1.19 SOL.</div>
             </div>
             <div className={activeFaqIndex == 4 ? 'faq active-faq' : 'faq'}>
                 <div className='faq-header' onClick={() => handleFaq(4)}>
