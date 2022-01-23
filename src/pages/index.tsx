@@ -466,7 +466,7 @@ const Home = () => {
                   <img src={'/images/benefits2.png'} className="image-benefit" />
               </div>
               <h5 className="panel-why-desc-title">PW RAFFLE GAMES</h5>
-              <p className="panel-why-desc-text">PW NFT is your lucky NFTicket to enter the Raffle and WIN a piece of a virtual Land in one of the Top Metaverses (along with other valuable assets). 12 Raffle Games will be played during 12 months after minting. 1 PW = 12 Entries.</p>
+              <p className="panel-why-desc-text">PW NFT is your lucky NFTicket to enter the Raffle and win prizes. 12 Raffle Games will be played during 12 months after collection is sold out. 1 NFT = 12 Entries.</p>
             </div>
 
             <div className="md:col-span-1 panel-benefit flex flex-col space-y-2 p-5 panel-why-border-radius">
@@ -498,8 +498,8 @@ const Home = () => {
               <div className="flex justify-start items-center">
                   <img src={'/images/benefits6.png'} className="image-benefit" />
               </div>
-              <h5 className="panel-why-desc-title">SMART TOOL</h5>
-              <p className="panel-why-desc-text">Holders will get exclusive access to our smart tools that will help you successfully analyze, mint and profitably trade NFTs across multiple blockchains, as well as save your time & money on research and many more.</p>
+              <h5 className="panel-why-desc-title">ACADEMY & SMART TOOLS</h5>
+              <p className="panel-why-desc-text">Holders will get exclusive access to the FX Sniper Academy (learn crypto, forex trading), NFT calls for upcoming projects and other tools.</p>
             </div>
 
             <div className="md:col-span-1 flex justify-center items-center">
