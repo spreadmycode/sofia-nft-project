@@ -143,6 +143,7 @@ const Home = () => {
   }
 
   const handleCheckCode = async () => {
+    
     if (code.length != AFFILIATION_CODE_LEN) {
       toast.error(`Code should be ${AFFILIATION_CODE_LEN} letters(digits and chars).`, { duration: 4000});
       return;
