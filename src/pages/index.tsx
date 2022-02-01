@@ -247,7 +247,7 @@ const Home = () => {
 
       <Head>
         <title>Panda Warriors</title>
-        <meta name="description" content="Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun." />
+        <meta name="description" content="Panda Warriors is a utility-based NFT collection, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun." />
         <link rel="icon" href="/icon.png" />
       </Head>
 
@@ -259,7 +259,7 @@ const Home = () => {
           <div>
             <h3 className="text-white text-center overview-title drop-shadow-lg">PANDA WARRIORS</h3>
             <p className="text-white text-center overview-desc px-5 md:px-24">
-              Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
+              Panda Warriors is a utility-based NFT collection, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
             </p>
           </div>
         </div>
@@ -272,7 +272,7 @@ const Home = () => {
         <div className="">
           <h3 className="text-white text-center overview-title drop-shadow-lg">PANDA WARRIORS</h3>
           <p className="text-white text-center overview-desc px-5 md:px-24">
-            Panda Warriors is a collection of 10,000 generated NFTs, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
+            Panda Warriors is a utility-based NFT collection, living on the Solana Blockchain, each asset is hand-drawn from scratch by a talented group of artists. Every art piece present on our website is hand-drawn by us. Each Panda Warrior is your lucky NFTicket, that will grow in value every phase of the Panda Warriors project development. Be a part of our journey full of adventures and fun.
           </p>
         </div>
       </section>
@@ -342,7 +342,6 @@ const Home = () => {
 
       <section ref={mintRef}>
         <div className="w-full">
-        <h5 className="text-white presale-title drop-shadow-lg text-center">MINT IS LIVE.</h5>
           <h5 className="text-white presale-title drop-shadow-lg text-center">PUBLIC SALE <span className="text-yellow-500">1.19 SOL</span></h5>
           <div className="panel-mint">
             <div className="panel-mint-background">
@@ -537,7 +536,7 @@ const Home = () => {
             <div className="flex flex-col space-y-2">
               <h3 className="text-white text-center text-section-title drop-shadow-lg">TRAITS</h3>
               <p className="text-white text-center overview-desc px-5 md:px-32">
-                Panda Warriors NFT Collection is generated out of 240 different hand-drawn traits. Some traits are rarer than others, classifying all 10,000 Panda Warriors rarity from common, uncommon, rare to super rare. There are only 12 unique 1 of 1 Panda Warriors NFTs that having 100% exclusive combination of traits, making them one-of-a-kind pieces. The traits include background, body skin, bodywear, eyes, ears, hat, mouth shape, mouth accessories, tools. Soon after minting, you will be able to check the rarity score of your Panda Warriors and find out how rare your Panda Warrior is.
+                Panda Warriors NFT Collection is generated out of 240 different hand-drawn traits. Some traits are rarer than others, classifying all Panda Warriors rarity from common, uncommon, rare to super rare. There are only 12 unique 1 of 1 Panda Warriors NFTs that having 100% exclusive combination of traits, making them one-of-a-kind pieces. The traits include background, body skin, bodywear, eyes, ears, hat, mouth shape, mouth accessories, tools. Soon after minting, you will be able to check the rarity score of your Panda Warriors and find out how rare your Panda Warrior is.
               </p>
             </div>
           </div>

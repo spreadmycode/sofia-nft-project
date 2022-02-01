@@ -68,9 +68,14 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
                 MARKETPLACE
               </button>
             </Link> */}
-            <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(referralRef, 'REFERRAL')} >
+            {/* <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" onClick={() => scrollTo(referralRef, 'REFERRAL')} >
               Referral
-            </button>
+            </button> */}
+            <Link href="/rarity">
+              <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none" >
+                RARITY
+              </button>
+            </Link>
             <button className="button-mint" onClick={() => scrollTo(mintRef, 'MINT')} >
               MINT
             </button>
@@ -119,9 +124,14 @@ const Header = ({whyusRef, roadmapRef, benefitsRef, attributesRef, teamRef, faqR
             MARKETPLACE
           </button>
         </Link> */}
-        <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(referralRef, 'REFERRAL')} >
+        {/* <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" onClick={() => scrollTo(referralRef, 'REFERRAL')} >
           Referral
-        </button>
+        </button> */}
+        <Link href="/rarity">
+          <button className="outline-none bg-transprent theme-header-link text-white uppercase focus:outline-none header-menu-item" >
+            RARITY
+          </button>
+        </Link>
         <div className="w-full flex justify-center items-center">
           <button className="button-mint" onClick={() => scrollTo(mintRef, 'MINT')} >
             MINT
