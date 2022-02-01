@@ -64,15 +64,16 @@ const Home = () => {
     }
 
     if (!isActive) {
-      toast.success(
-        <p>
-          Round 2 of a Pre-Sale starts on 7th of January, register for a WL &nbsp;&nbsp;
-          <a href='https://docs.google.com/forms/d/e/1FAIpQLSeFBLjvo1hCSepQn_IvSNKY_6BOfkxyw1f_07kSS1XpaHqo4A/viewform?usp=sf_link' target='_blank'>
-            <button className='bg-yellow-300 hover:bg-yellow-400 text-black font-bold rounded inline-flex items-center justify-center w-16 py-1'>Here</button>
-          </a>
-        </p>,
-        { duration: 10000}
-      );
+      // toast.success(
+      //   <p>
+      //     Round 2 of a Pre-Sale starts on 7th of January, register for a WL &nbsp;&nbsp;
+      //     <a href='https://docs.google.com/forms/d/e/1FAIpQLSeFBLjvo1hCSepQn_IvSNKY_6BOfkxyw1f_07kSS1XpaHqo4A/viewform?usp=sf_link' target='_blank'>
+      //       <button className='bg-yellow-300 hover:bg-yellow-400 text-black font-bold rounded inline-flex items-center justify-center w-16 py-1'>Here</button>
+      //     </a>
+      //   </p>,
+      //   { duration: 10000}
+      // );
+      toast.success("Minting date will be announced soon, stay tuned!", { duration: 6000});
       return;
     }
 
@@ -352,17 +353,17 @@ const Home = () => {
             </div>
           </div>
           {
-            isActive ?
-              <p className="presale-desc text-white text-center">
-                {/* PW Minted / Total : {nftsData.itemsRedeemed} / {nftsData.itemsAvailable} */}
-              </p>
-            :
-              <Countdown
-                date={mintStartDate}
-                onMount={({ completed }) => completed && setIsActive(true)}
-                onComplete={() => setIsActive(true)}
-                renderer={renderCounter}
-              />
+            // isActive ?
+            //   <p className="presale-desc text-white text-center">
+            //     {/* PW Minted / Total : {nftsData.itemsRedeemed} / {nftsData.itemsAvailable} */}
+            //   </p>
+            // :
+            //   <Countdown
+            //     date={mintStartDate}
+            //     onMount={({ completed }) => completed && setIsActive(true)}
+            //     onComplete={() => setIsActive(true)}
+            //     renderer={renderCounter}
+            //   />
           }
         </div>
       </section>
