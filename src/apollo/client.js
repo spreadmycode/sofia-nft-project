@@ -31,7 +31,6 @@ function createApolloClient() {
         },
       },
     }),
-    // uri: "http://localhost:3000/graphql"
   })
 }
 
